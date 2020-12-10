@@ -1,0 +1,592 @@
+\NeedsTeXFormat{LaTeX2e}[2000/06/01]
+\ProvidesPackage{ud}[2020/11/21 v1.0]
+
+% conditional markup tuning, to maintain more than 1 version of module sources with hand-tuned markup
+\def\tunemarkuptag#1{\@namedef{tune@markup@#1}{}}
+\def\tunemarkup#1#2{\@ifundefined{tune@markup@#1}{}{#2}}
+\def\tunemarkuptwo#1#2#3{\@ifundefined{tune@markup@#1}{#3}{#2}}
+
+% various page sizes
+\tunemarkuptag{pgnexus10}
+%\tunemarkuptag{pgthinmob}
+
+\RequirePackage[figure,curq,nfnst,nfnc]{totalcount}
+\RequirePackage{caption,makeidx}
+\RequirePackage[columns=1,font=current]{idxlayout}
+\RequirePackage[parvs]{ubook}
+
+\RequirePackage{etoolbox}
+\patchcmd{\thebibliography}{\chapter*}{\section*}{}{}
+
+% various font families
+\tunemarkuptag{garamond}
+
+% comment out to enable footnotes
+%\tunemarkuptag{nofnt}
+
+% comment out for public build
+\tunemarkuptag{private}
+
+% comment out to disable pictures
+\tunemarkuptag{pictures}
+
+% comment out to enable Cosmic Citizenship Quiz
+%\tunemarkuptag{noquiz}
+
+\setdefaultlanguage{russian}
+
+\renewcommand{\r}{\kern2pt\raisebox{1.5ex}{\circle{2}}}
+
+\tunemarkup{garamond}{%
+\def\urantiamainfont{Garamond Premier Pro}
+\def\urantiaparttitlefont{Garamond Premier Pro Semibold Display}
+\def\urantiaauthorfont{PF DaVinci Script Pro}
+\def\urantiatitlefont{Garamond Premier Pro Semibold Display}
+\def\urantiaheaderfont{Arial Narrow}
+\def\urantiaheadingfont{Arial Narrow Bold}
+}
+
+% Samsung Galaxy A70 20:9 aspect ratio
+\tunemarkup{pgthinmob}{\RequirePackage[dvips,headheight=19pt,headsep=2pt,vmargin={0.2in,0.15in},hmargin={0.1in},twoside=true,papersize={90.0mm,200mm}]{geometry}}
+
+% Google Nexus 10 (or any Android 10" colour device)
+\tunemarkup{pgnexus10}{\RequirePackage[dvips,headheight=19pt,headsep=2pt,vmargin={0.2in,0.15in},hmargin={0.1in},twoside=true,papersize={135.0mm,216mm}]{geometry}}
+
+% allow inter-paragraph space to grow
+\setlength{\parskip}{2pt plus 5pt minus 2pt}
+
+\setmainfont[WordSpace={1.2,2.5,1.0},Mapping=tex-text]{\urantiamainfont}
+\newfontfamily\titlefont[Letters=Uppercase,LetterSpace=1.0,WordSpace=2.0,Mapping=tex-text]{\urantiatitlefont}
+\newfontfamily\parttitlefont[Letters=Uppercase,LetterSpace=1.0,WordSpace=2.0,Mapping=tex-text]{\urantiaparttitlefont}
+\newfontfamily\headerfont[WordSpace=2.4,Letters=Uppercase,LetterSpace=2.0,Mapping=tex-text]{\urantiaheaderfont}
+\newfontfamily\sectiontitlefont[WordSpace=2.0,Letters=Uppercase,LetterSpace=1.2,Mapping=tex-text]{\urantiaheaderfont}
+\newfontfamily\headingfont[LetterSpace=1.2,WordSpace=1.2,Mapping=tex-text]{\urantiaheadingfont}
+\newfontfamily\authorfontfamily[Mapping=tex-text]{\urantiaauthorfont}
+
+%\newfontfamily\captionfont[Mapping=tex-text]{Linux Libertine O}
+\DeclareCaptionFormat{capfont}{\captionfont\large#1#2#3}
+\captionsetup{format=capfont,labelfont=bf,margin={0cm,0cm},justification=justified,singlelinecheck=off}
+
+\newfontfamily\libertinefont[Mapping=tex-text]{Linux Libertine O}
+\newcommand{\tux}{{\libertinefont ^^^^e000}}
+
+\newcounter{paper}
+\newcounter{secnum}
+
+\fancyhead{}
+\fancyfoot{}
+
+\fancyhead[L]{\bibheadfont\vs@range}
+\fancyhead[R]{\bibheadfont\bibheadpagesize\thepage}
+
+\renewcommand{\author}[1]{\thispagestyle{empty}\begin{center}\authorfont\textcolor{ubblue}{#1}\end{center}\fancyhead[CE]{\bibheadfont\MakeUppercase{#1}}}
+
+\newcommand{\upartheader}[1]{%
+   \par\vspace{3ex}\pagebreak[3]%
+   {
+   \titlefont\bibtocheadfont
+    \ifnum #1=1
+       \partitxt.~\partiup
+    \fi
+    \ifnum #1=2
+       \partiitxt.~\partiiup
+    \fi
+    \ifnum #1=3
+       \partiiitxt.~\partiiiup
+    \fi
+    \ifnum #1=4
+       \partivtxt.~\partivup
+    \fi
+   }\vspace{2ex}%
+}
+
+\newcommand{\upapertitleheader}[3]{%
+   \mbox{%
+     \makebox[0.05\linewidth][l]{№}%
+     \makebox[0.57\linewidth][l]{\textsc{#1}}%
+     \makebox[0.29\linewidth][l]{\textsc{#2}}%
+     \makebox[0.05\linewidth][l]{\textsc{#3}}%
+  }%
+}
+
+\newcommand{\upapertitle}[4]{%
+   {
+     \pagebreak[3]%
+     \makebox[0.05\linewidth][r]{#1. }%
+     \makebox[0.57\linewidth][l]{#2\bibdf}%
+     \makebox[0.29\linewidth][l]{#3\bibdf}%
+     \makebox[0.07\linewidth][r]{\headerfont\bibpr{#4}}%
+   }\vspace{0.6ex}\linebreak
+}
+
+\newcommand{\ublistelem}[1]{\kern1.0em\relax\makebox[0.2em][r]{#1}\kern0.1em\relax}
+
+\newcommand*{\usection}[1]{%
+\def\secname{#1}
+    \stepcounter{secnum}%
+    \par\raggedbottom\addtolength{\topskip}{0pt plus 20pt}\vspace*{1ex}%
+    {\centering\sectiontitlefont\parbox{\columnwidth}{\mdseries\ifx\secname\ackn\itshape\fi\centering\uppercase{#1}}\\*[3pt]}%
+\def\bibnobreakspace{ }
+    % XXX for section-level bookmarks uncomment the following line and comment the one after
+    \bib@raise@anchor{\bibpdfbookmark[2]{#1}{\bkname_\thechnum_\curr@vs}\label{p\thepaper_\thesecnum}\hypertarget{p\thepaper_\thesecnum}{}}%
+\def\bibnobreakspace{\kern5pt\relax}
+    \flushbottom\addtolength{\topskip}{0pt plus -20pt}
+}
+
+\def\bibnobreakspace{\kern5pt\relax}
+\newcommand{\separatorline}{\begin{center}*\ \ *\ \ *\ \ *\ \ *\end{center}}
+\newcommand{\separatorshort}{\begin{center}*\ *\ *\end{center}}
+
+\providecommand{\textlatin}[1]{{#1}}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\bibdropcapscolor}{ubdarkred}
+\columnseprule=0.0pt
+
+\def\mytoday{{\ddmmyyyydate\today}}
+\def\bibchap{\printvssup{\curr@vs}}
+
+\def\vs@range{%
+  \@ifundefined{mark@vs@\thepage}{}{%
+    \bibheadpapersize\thepaper:\expandafter\expandafter\expandafter
+      \vs@range@a\csname mark@vs@\thepage\endcsname
+  }%
+}
+
+% vine leaves
+\def\hr{j}
+\def\hhr{k}
+\def\hhhr{l}
+\def\hhhhr{i}
+\def\hl{j}
+\def\hhl{k}
+\def\hhhl{l}
+\def\hhhhl{i}
+\def\topplank{fghe}
+\def\botplank{ghef}
+\def\topl{a}
+\def\topprer{f}
+\def\topr{b}
+\def\botl{c}
+\def\botprer{g}
+\def\botr{d}
+
+\RequirePackage{enumitem}
+
+\newcommand{\quizsymbol}{\textcolor{ubblue}{\usefont{U}{webo}{xl}{n}7}}
+
+\newcommand{\quizlink}{\par\vspace*{\stretch{0.1}}\begin{center}\hyperlink{qc\thepaper}{\Huge\quizsymbol}\end{center}\vspace*{\stretch{0.9}}}%
+
+\tunemarkup{noquiz}{\def\quizlink{}}
+
+\newcommand{\titleframe}{%
+\begingroup
+\tunemarkup{pgnexus10}{%
+\setlength{\unitlength}{13.2pt}%
+\fontsize{\unitlength}{\unitlength}\usefont{U}{webo}{xl}{n}
+   \begin{picture}(0,0)(1.0,-44.0)%
+     \color{ubblue}
+     % top left corner
+     \put(0,0){\topl}
+     % top plank
+     \multiput(1.2,0)(4.8,0){5}{\topplank}
+     % top right corner
+     \put(25.2,0){\topprer}
+     \put(26.4,0){\topr}
+     % right plank
+     \multiput(26.3,-1.2)(0,-4.7){9}{\hr}
+     \multiput(26.3,-2.4)(0,-4.7){9}{\hhr}
+     \multiput(26.3,-3.6)(0,-4.7){9}{\hhhr}
+     \multiput(26.3,-4.8)(0,-4.7){9}{\hhhhr}
+     % left plank
+     \multiput(0,-1.2)(0,-4.7){9}{\hhhhl}
+     \multiput(0,-2.4)(0,-4.7){9}{\hl}
+     \multiput(0,-3.6)(0,-4.7){9}{\hhl}
+     \multiput(0,-4.8)(0,-4.7){9}{\hhhl}
+     % bottom left corner
+     \put(0,-43.6){\botl}
+     % bottom plank
+     \multiput(1.2,-43.6)(4.8,0){5}{\botplank}
+     % bottom right corner
+     \put(25.2,-43.6){\botprer}
+     \put(26.4,-43.6){\botr}
+   \end{picture}%
+}%
+\endgroup
+}
+
+\tunemarkup{pgnexus10}{\tolerance=2000}
+\tunemarkup{pgthinmob}{\tolerance=9999}
+
+\DeclareTextAccent{\'}{\encodingdefault}{180}
+
+\setlength{\columnsep}{3.5mm}
+\setlength\parindent{14\p@}
+\let\textcolour\textcolor
+
+% Cosmic Citizenship Quiz macros
+
+\newcommand{\questionfont}{\fontsize{16}{19}\bfseries}
+\newcommand{\answersfont}{\fontsize{16}{19}\selectfont}
+
+\newcommand{\quizheader}{%
+   \newpage\pagestyle{empty}%
+   \bibpdfbookmark{КОСМИЧЕСКОЕ ГРАЖДАНСТВО}{qz}%
+   \vspace*{\stretch{0.2}}%
+   \begin{center}\titlefont\fontsize{20}{20}\selectfont КОСМИЧЕСКОЕ ГРАЖДАНСТВО\\(\totalcurqs\ вопросов)\\\end{center}%
+   \vspace*{\stretch{0.7}}%
+   \newpage
+   \newcount\i
+   \i=0\relax
+   \loop
+     \ifnum\i<197
+        \@ifundefined{pqcount\the\i}{\expandafter\def\csname pqcount\the\i\endcsname{0}}{}%
+     \advance\i by1
+   \repeat
+}
+
+\newcommand{\quizpart}[1]{%
+   \newpage\LARGE
+   \vspace*{\stretch{0.2}}%
+   \ifnum #1=1
+      \bibpdfbookmark[1]{\partimix}{qp1}%
+      \begin{center}\titlefont\MakeUppercase{\partimix}\end{center}%
+   \fi
+   \ifnum #1=2
+      \bibpdfbookmark[1]{\partiimix}{qp2}%
+      \begin{center}\titlefont\MakeUppercase{\partiimix}\end{center}%
+   \fi
+   \ifnum #1=3
+      \bibpdfbookmark[1]{\partiiimix}{qp3}%
+      \begin{center}\titlefont\MakeUppercase{\partiiimix}\end{center}%
+   \fi
+   \ifnum #1=4
+      \bibpdfbookmark[1]{\partivmix}{qp4}%
+      \begin{center}\titlefont\MakeUppercase{\partivmix}\end{center}%
+   \fi
+   \vspace*{\stretch{0.7}}%
+   \newpage
+}
+
+\newcount\qpapernum
+
+\newcommand{\qpaper}[2]{%
+   \newpage
+   \qpapernum=\number#1\relax
+   \setcounter{paperqcount}{0}%
+   \ifnum #1=0\quizpart{1}\fi
+   \ifnum #1=32\quizpart{2}\fi
+   \ifnum #1=57\quizpart{3}\fi
+   \ifnum #1=120\quizpart{4}\fi
+   \vspace*{\stretch{0.2}}%
+   \bib@raise@anchor{\bibpdfbookmark[2]{#1. #2}{qc#1}\hypertarget{qc#1}{}}%
+   \begin{center}\titlefont\LARGE#1.\nobreakspace\hyperlink{p#1}{\MakeUppercase{#2}}\\(\csname pqcount#1\endcsname\ вопросов)\\\end{center}
+   \vspace*{\stretch{0.7}}%
+   \newpage
+}
+
+\newcounter{nfnc}
+\newcounter{nfnst}
+\newcounter{paperqcount}
+\newcounter{curq}
+\newcounter{cans}
+
+\newcommand{\printquestion}{\noindent\questionfont\question}
+
+\newlength{\quizanswermargin}
+\setlength{\quizanswermargin}{4em}
+
+\newcommand{\qstart}[1]{%
+  \newpage
+  \setcounter{cans}{0}%
+  \stepcounter{curq}%
+  \stepcounter{paperqcount}%
+  \expandafter\edef\csname pqcount\the\qpapernum\endcsname{\thepaperqcount}
+  \gdef\question{#1}%
+  \printquestion
+  \begin{enumerate}[leftmargin=\quizanswermargin,label=\protect\ding{\value*},start=172]%
+  \answersfont
+  \@answers
+}
+
+\tunemarkuptwo{noquiz}{}{%
+\AtEndDocument{%
+\newcount\pqcounter
+\pqcounter=0
+\noindent
+\loop
+  \ifnum\pqcounter<197
+    \immediate\write\@mainaux{\string\expandafter\string\gdef\string\csname\space pqcount\the\pqcounter\string\endcsname{\csname pqcount\the\pqcounter\endcsname}}
+  \advance\pqcounter by1
+\repeat
+}
+}
+
+\newcommand\@answers{\@ifnextchar\qstop{\@answersend}{\@nextanswer}}
+
+\newcommand\@nextanswer[2]{%
+  \stepcounter{cans}%
+  \item \hyperlink{ans\thecurq}{#1}%
+  \ifnum \value{cans}=1 \gdef\answerone{#1 \ifnum #2=1 \cmark\else\xmark\fi}\fi
+  \ifnum \value{cans}=2 \gdef\answertwo{#1 \ifnum #2=1 \cmark\else\xmark\fi}\fi
+  \ifnum \value{cans}=3 \gdef\answerthree{#1 \ifnum #2=1 \cmark\else\xmark\fi}\fi
+  \ifnum \value{cans}=4 \gdef\answerfour{#1 \ifnum #2=1 \cmark\else\xmark\fi}\fi
+  \ifnum \value{cans}=5 \gdef\answerfive{#1 \ifnum #2=1 \cmark\else\xmark\fi}\fi
+  \ifnum \value{cans}=6 \gdef\answersix{#1 \ifnum #2=1 \cmark\else\xmark\fi}\fi
+  \ifnum \value{cans}=7 \gdef\answerseven{#1 \ifnum #2=1 \cmark\else\xmark\fi}\fi
+  \ifnum \value{cans}=8 \gdef\answereight{#1 \ifnum #2=1 \cmark\else\xmark\fi}\fi
+  \ifnum \value{cans}=9 \gdef\answernine{#1 \ifnum #2=1 \cmark\else\xmark\fi}\fi
+  \ifnum \value{cans}=10 \gdef\answerten{#1 \ifnum #2=1 \cmark\else\xmark\fi}\fi
+  \@answers
+}
+
+\newcommand\@answersend[1]{%
+  \end{enumerate}%
+  \newpage
+  \hypertarget{ans\thecurq}{}%
+  \printquestion
+  \begin{enumerate}[leftmargin=\quizanswermargin,label=\protect\ding{\value*},start=172]%
+  \answersfont
+  \item \answerone
+  \ifnum \value{cans}>1 \item \answertwo\fi
+  \ifnum \value{cans}>2 \item \answerthree\fi
+  \ifnum \value{cans}>3 \item \answerfour\fi
+  \ifnum \value{cans}>4 \item \answerfive\fi
+  \ifnum \value{cans}>5 \item \answersix\fi
+  \ifnum \value{cans}>6 \item \answerseven\fi
+  \ifnum \value{cans}>7 \item \answereight\fi
+  \ifnum \value{cans}>8 \item \answernine\fi
+  \ifnum \value{cans}>9 \item \answerten\fi
+  \end{enumerate}%
+}
+
+\newcommand{\cmark}{\textcolor{ubgreen}{\ding{51}}}
+\newcommand{\xmark}{\textcolor{ubdarkred}{\ding{55}}}
+
+\newcommand{\hsetoff}{\hspace*{1em}}
+\newcommand{\vsetspace}{\vspace{1ex}}
+\newcommand{\bibcovertitlefont}{\parttitlefont\fontsize{18}{18}\selectfont\addfontfeature{LetterSpace=4.5}}
+\protected\def\print@vssup#1{\makebox[0.9em][l]{\@textsuperscript{\fontsize{7}{7}\bfseries#1}}\kern0.4em\relax}
+
+\tunemarkuptwo{nofnt}{%
+ \def\fnst#1{}
+}{%
+ \def\fnst#1{\kern.01em$^*$\stepcounter{nfnst}\fn{#1}}
+}
+
+\newlength{\minitocafterskip}
+\setlength{\minitocafterskip}{-1ex}
+
+% for mini-TOC of each paper
+\newcommand{\usectiontitle}[3]{%
+   {\bibsectitlefont
+     \makebox[0.08\linewidth][r]{#2. }%
+     \makebox[0.85\linewidth][l]{#3\bibdf}%
+     \makebox[0.06\linewidth][r]{\bibpr{p#1_#2}}%
+   }\vspace{\minitocafterskip}\linebreak
+}
+
+% for TOC entries horizontal spacing
+\newcommand{\numw}{0.08\linewidth}
+\newcommand{\txtw}{0.81\linewidth}
+
+\definecolor{ubblue}{rgb}{0.0, 0.3, 0.6}
+\definecolor{ubgreen}{rgb}{0.0, 0.4, 0.0}
+\definecolor{ubdarkred}{rgb}{0.8, 0.0, 0.0}
+
+\tunemarkup{pgnexus10}{%
+\protected\def\print@vssup#1{\makebox[0.4em][l]{\@textsuperscript{\fontsize{7}{7}\bfseries#1}}\kern0.3em\relax}
+\newcommand{\titlesepbig}{{\usefont{U}{webo}{xl}{n}\huge\textcolor{ubblue}{ahb}}}
+\newcommand{\bibpaperfont}{\headingfont\fontsize{13}{15}\selectfont}
+\newcommand{\bibpapertitlefont}{\headingfont\fontsize{17}{19}\bfseries}
+\newcommand{\bibtocsuperheadfont}{\fontsize{14}{20}\selectfont}
+\renewcommand{\bibtocheadfont}{\addfontfeature{LetterSpace=1.2}\fontsize{11}{12}\bfseries}
+\renewcommand{\bibtocfont}{\fontsize{8.8}{17}\selectfont}
+\newcommand{\bibheadpapersize}{\fontsize{8.0}{8.0}\selectfont}
+\renewcommand{\bibheadchapsize}{\fontsize{7.5}{7.5}\selectfont}
+\renewcommand{\bibheadversesize}{\fontsize{7}{7}\selectfont}
+\renewcommand{\bibheadpagesize}{\fontsize{8}{8}\selectfont}
+\newcommand{\subfont}{\fontsize{14}{18}\itshape}
+\newcommand{\parttitlefontsize}{\addfontfeature{LetterSpace=3.0}\LARGE}
+\newcommand{\bibsectitlefont}{\sectiontitlefont\fontsize{11}{13}\selectfont}
+\setlength{\minitocafterskip}{0.15ex}
+\def\pc{{\fontsize{9}{9}\selectfont\P}\kern2pt}
+\renewcommand{\bibheadfont}{\headingfont\fontsize{7.7}{7.7}\selectfont}
+\newcommand{\bibbookend}{\fontsize{17}{18.3}\selectfont}
+\newcommand{\urantiamainfontsize}{17/18.3}
+\renewcommand{\footnotesize}{\fontsize{14}{16}\selectfont}
+\renewcommand{\bibfnchapsize}{\headerfont\normalsize\bfseries}
+\renewcommand{\bibfnvssize}{\headerfont\small\bfseries}
+\newcommand{\authorfont}{\authorfontfamily\fontsize{29}{8}\selectfont}%
+\newcommand{\introfontsize}{\fontsize{15.5}{17}\selectfont}
+\newcommand{\titlefontsize}{\fontsize{19}{28}\selectfont}
+\newcommand{\indexfontsize}{\fontsize{19}{28}\selectfont}
+}
+
+\tunemarkup{pgthinmob}{%
+\protected\def\print@vssup#1{\makebox[0.2em][r]{\@textsuperscript{\headerfont\fontsize{10}{10}\selectfont#1}}\kern0.2em\relax}
+\def\pc{{\fontsize{12}{12}\selectfont\P}\kern2pt}
+\newcommand{\titlesepbig}{{\usefont{U}{webo}{xl}{n}\Large\textcolor{ubblue}{ahb}}}
+\newcommand{\bibpaperfont}{\headingfont\fontsize{13}{15}\selectfont}
+\newcommand{\bibpapertitlefont}{\headingfont\fontsize{15}{17}\bfseries}
+\newcommand{\bibtocsuperheadfont}{\fontsize{14}{20}\selectfont}
+\renewcommand{\bibheadfont}{\headingfont\fontsize{7.2}{7.2}\selectfont}
+\renewcommand{\bibtocheadfont}{\addfontfeature{LetterSpace=1.2}\fontsize{12}{16}\bfseries}
+\renewcommand{\bibtocfont}{\fontsize{7}{13.5}\selectfont}
+\newcommand{\bibheadpapersize}{\fontsize{8.0}{8.0}\selectfont}
+\renewcommand{\bibheadchapsize}{\fontsize{7.5}{7.5}\selectfont}
+\renewcommand{\bibheadversesize}{\fontsize{7}{7}\selectfont}
+\renewcommand{\bibheadpagesize}{\fontsize{8}{8}\selectfont}
+\newcommand{\subfont}{\fontsize{14}{17}\itshape}
+\newcommand{\parttitlefontsize}{\addfontfeature{LetterSpace=4.0}\Large}
+\newcommand{\bibsectitlefont}{\sectiontitlefont\fontsize{9}{12}\selectfont}
+\renewcommand{\bibfnchapsize}{\headerfont\Large\bfseries}
+\renewcommand{\bibfnvssize}{\headerfont\large\bfseries}
+\newcommand{\bibbookend}{\fontsize{19}{21}\selectfont}
+\newcommand{\urantiamainfontsize}{19/21}
+\renewcommand{\footnotesize}{\fontsize{16}{18}\selectfont}
+\setlength{\minitocafterskip}{-0.15ex}
+\newcommand{\authorfont}{\authorfontfamily\fontsize{22}{9}\bfseries\itshape}%
+\newcommand{\introfontsize}{\fontsize{17}{19}\selectfont}
+\newcommand{\titlefontsize}{\fontsize{20}{22}\selectfont}
+\newcommand{\indexfontsize}{\fontsize{19}{28}\selectfont}
+}
+
+\newcommand{\vsetoff}{\vspace*{1ex}}%
+
+\AtBeginDocument{%
+\hypersetup{%
+  pdftitle={Пятое Эпохальное Откровение (Урантийские документы)},%
+  pdfauthor={Tigran Aivazian <aivazian.tigran@gmail.com>},%
+  pdfcreator={Bibles.org.uk Typesetting Environment based on TeX Live 2020},%
+  pdfsubject={Урантийские документы на русском языке},%
+  pdfkeywords={Урантия,Земля,Истина,Религия,Иисус,Откровение,Бог,Христианство,Библия,Писания,История},%
+  pdflang={Russian},%
+  pdfcreationdate={D:20201121210300Z},%
+  pdfmoddate={D:\pdfdate-00'00'}%
+}%
+}
+
+\newfontfamily\greekfont[Mapping=tex-text]{SBL Greek}
+\newcommand{\textgreek}[1]{{\greekfont#1}}
+
+\newfontfamily\hebrewfont[Mapping=tex-text,Script=Hebrew]{SBL Hebrew}
+\newcommand{\textheb}[1]{{\hebrewfont#1}}
+
+%\newfontfamily\armfont[Mapping=tex-text,Script=Armenian]{ArTarumianGrqiBardzr_U}
+%\newcommand{\textarm}[1]{{\armfont#1}}
+%\newfontfamily\chinesefont[Mapping=tex-text]{Code2000}
+%\newcommand{\textchinese}[1]{{\chinesefont#1}}
+
+\def\ackn{БЛАГОДАРНОСТЬ}
+\def\papertxt{ДОКУМЕНТ}
+\def\partitxt{ЧАСТЬ I}
+\def\partiup{ЦЕНТРАЛЬНАЯ ВСЕЛЕННАЯ И СВЕРХВСЕЛЕННЫЕ}
+\def\partimix{Часть I. Центральная вселенная и сверхвселенные}
+\def\partisub{При поддержке Уверсского Корпуса личностей сверхвселенной, уполномоченных Ветхими Днями Орвонтона.}
+\def\partiitxt{ЧАСТЬ II}
+\def\partiiup{ЛОКАЛЬНАЯ ВСЕЛЕННАЯ}
+\def\partiimix{Часть II. Локальная вселенная}
+\def\partiisub{При поддержке Небадонского Корпуса личностей локальной вселенной, уполномоченных Гавриилом Салвингтонским.}
+\def\partiiitxt{ЧАСТЬ III}
+\def\partiiiup{ИСТОРИЯ УРАНТИИ}
+\def\partiiimix{Часть III. История Урантии}
+\def\partiiisub{Настоящие документы были созданы при поддержке Корпуса личностей локальной вселенной, уполномоченных Гавриилом Салвингтонским.}
+\def\partivtxt{ЧАСТЬ IV}
+\def\partivup{ЖИЗНЬ И УЧЕНИЯ ИИСУСА}
+\def\partivmix{Часть IV. Жизнь и учения Иисуса}
+\def\partivsubone{Данная группа документов была создана при поддержке комиссии из двенадцати промежуточных созданий Урантии, работавшей под началом Мелхиседека, руководителя комиссии откровения.}
+\def\partivsubtwo{В основу повествования положена информация, предоставленная вторичным промежуточным созданием, некогда исполнявшим обязанности сверхчеловеческого хранителя апостола Андрея.}
+
+\newcommand{\bibpaperdisplay}[2]{%
+   \begin{center}%
+      \ifnum #1=0\parti\fi
+      \ifnum #1=32\partii\fi
+      \ifnum #1=57\partiii\fi
+      \ifnum #1=120\partiv\fi
+      \bibpaperfont
+         \ifnum #1>0\papertxt\nobreakspace\ №\,#1\\[1ex]\fi
+         \tunemarkuptwo{pgcrownq}{\space\MakeUppercase{#2}\\}{%
+           {\addfontfeatures{LetterSpace=3.0}\bibpapertitlefont\hyperlink{qc#1}{\MakeUppercase{#2}}}\\[1ex]
+           {\mdseries\input{tex/p\thepaper-sections.tex}}%
+         }%
+   \end{center}%
+}
+
+\newcommand{\myurl}[1]{\href{#1}{#1}}
+
+\newcommand{\upaper}[2]{%
+\newpage%
+\setcounter{paper}{#1}%
+\setcounter{secnum}{0}%
+\bibpaperdisplay{#1}{#2}%
+ \ubookdescr{p#1}{
+   toc={\makebox[\numw][r]{#1.\,}\makebox[\txtw][l]{#2\bibdf}},
+   bookmark={#1. #2},
+   header={#2},
+   abbr={p#1}
+}%
+\fancyhead[CO]{\bibheadfont\MakeUppercase{#2}}%
+\bib@raise@anchor{\bibpdfbookmark[2]{0. #2}{p#1_0}}%
+}
+
+\newcommand{\parti}{%
+\thispagestyle{empty}%
+\vspace*{\stretch{0.1}}%
+{\parttitlefont\parttitlefontsize\partitxt\\\partiup\\[2ex]}
+\begin{center}\subfont\partisub\end{center}%
+\vspace*{\stretch{0.3}}%
+\bibpart{\partitxt. \partiup}{\partimix}{pt1}%
+\begin{center}\includegraphics[width=0.7\columnwidth]{images/Blake-The-Ancient-of-Days.jpg}\end{center}
+\vspace*{\stretch{0.3}}%
+\newpage%
+}
+
+\newcommand{\partii}{%
+\thispagestyle{empty}%
+\vspace*{\stretch{0.1}}%
+{\parttitlefont\parttitlefontsize\partiitxt\\\partiiup\\[2ex]}
+\begin{center}\subfont\partiisub\end{center}%
+\vspace*{\stretch{0.9}}%
+\bibpart{\partiitxt. \partiiup}{\partiimix}{pt2}%
+\newpage%
+}
+
+\newcommand{\partiii}{%
+\thispagestyle{empty}%
+\vspace*{\stretch{0.1}}%
+{\parttitlefont\parttitlefontsize\partiiitxt\\\partiiiup\\[2ex]}
+\begin{center}\subfont\partiiisub\end{center}%
+\vspace*{\stretch{0.9}}%
+\bibpart{\partiiitxt. \partiiiup}{\partiiimix}{pt3}%
+\newpage%
+}
+
+\newcommand{\partiv}{%
+\thispagestyle{empty}%
+\vspace*{\stretch{0.1}}%
+{\parttitlefont\parttitlefontsize\partivtxt\\\partivup\\[2ex]}
+\begin{center}\subfont\partivsubone\\[2ex]\partivsubtwo\end{center}%
+\vspace*{\stretch{0.4}}%
+\bibpart{\partivtxt. \partivup}{\partivmix}{pt4}%
+\begin{center}\includegraphics[width=0.7\columnwidth]{images/Cosmic-Jesus.jpg}\end{center}
+\vspace*{\stretch{0.4}}%
+\newpage%
+}
+
+\begin{hyphenrules}{russian}
+\hyphenation{%
+dist-ri-bu-tive
+ex-pan-sive
+crea-tu-re
+in-ten-sion
+iden-ti-ty
+не-пер-со-на-ли-зи-ру-е-мых
+бо-жест-вен-ной
+до-сти-же-ни-ям
+Бо-жест-ва
+Ор-вон-то-на
+сверх-все-лен-ных
+}
+\end{hyphenrules}
+
+\makeindex

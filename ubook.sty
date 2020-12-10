@@ -1,0 +1,374 @@
+%
+% XeLaTeX package for typesetting the various editions of the Urantia Papers
+% Copyright (c) 2002-2020 Tigran Aivazian <aivazian.tigran@gmail.com>
+%
+
+\NeedsTeXFormat{LaTeX2e}[2000/06/01]
+\ProvidesPackage{ubook}[2013/09/10 v1.0]
+
+\@for\tmp@a:=%
+  parvs,doublecol%
+\do{%
+  \expandafter\newif\csname if\tmp@a\endcsname
+  \edef\tmp@b{{\tmp@a}{\expandafter\noexpand\csname \tmp@a true\endcsname}}%
+  \expandafter\DeclareOption\tmp@b
+}
+\DeclareOption*{%
+  \PackageError{ubook}%
+  {Unknown option `\CurrentOption' passed}%
+  {You might have misspelt the name of the option, or used an obsolete option.}%
+}
+\ProcessOptions
+
+% to be able to use \hyphenchar other than ASCII "-" we use
+% \hyph{a}{b}{c} instead of \discretionary{a-}{b}{c} (see zohrab/tex/*.tex)
+\protected\def\hyph#1#2#3{\discretionary{#1\char\hyphenchar\font}{#2}{#3}}
+
+\RequirePackage[perpage]{footmisc}
+\RequirePackage{fancyhdr,color,etex,multicol,amssymb,xltxtra,polyglossia,hyphenat,ulem,xcolor,pagecolor,afterpage,float,pifont,fancybox,pdfpages}
+
+\setlength{\fboxsep}{7pt}
+
+\newcommand{\bibdropcapscolor}{black}
+\newcommand{\bibtocfont}{\fontsize{11}{13.2}\selectfont}
+\newcommand{\bibtocheadfont}{\Large\scshape}
+\newcommand{\bibfnchapsize}{\bfseries\normalsize}
+\newcommand{\bibfnvssize}{\bfseries\small}
+\newcommand{\bibheadfont}{\normalsize\scshape}
+\newcommand{\bibheadchapsize}{\normalfont\normalsize}
+\newcommand{\bibheadversesize}{\normalfont\footnotesize}
+\newcommand{\bibheadpagesize}{\normalfont\footnotesize}
+\newcommand{\bibpage}{\pagename}
+\newcommand{\bibcontname}{The Titles of the Papers}
+
+   \long\def\makefootnoteparagraph{\unvbox\footins \makehboxofhboxes
+    \setbox\FN@tempboxa=\hbox{\unhbox\FN@tempboxa \removehboxes}
+    \hsize\textwidth
+    \@parboxrestore
+    \baselineskip=\footnotebaselineskip
+    \noindent
+    \rule{\z@}{\footnotesep}%
+    \unhbox\FN@tempboxa\par
+  }
+  \long\def\@makefntext#1{\leavevmode
+    \@makefnmark\nobreak
+    #1% removed \hskip.5em\relax before #1
+  }
+
+\RequirePackage{lettrine}
+\setcounter{DefaultLines}{3}
+
+\RequirePackage[plainpages=false,hyperfootnotes=false,pdfpagelabels,colorlinks,linkcolor=black,anchorcolor=black,citecolor=black,filecolor=black,menucolor=black,pagecolor=black,urlcolor=blue]{hyperref}
+
+\protected\def\bib@raise@anchor#1{%
+  \ifhmode
+    \iftrue
+      \Hy@raisedlink{#1}%
+    \else
+      \vadjust pre{%
+        %\smash{#1}%
+        \@ovri\dp\strutbox \kern-\@ovri
+        \setbox\z@\hb@xt@\hsize{#1}%
+        \ht\z@\z@ \dp\z@\@ovri \box\z@
+        \kern\z@
+      }%
+    \fi
+  \else#1\fi
+}
+
+\newcommand*{\bibpr}[1]{\hyperlink{#1}{\textlatin{\pageref*{#1}}}}
+\newcommand*{\bibpdfbookmark}[3][0]{\pdfbookmark[#1]{#2}{#3}}
+\newcommand*{\rref}[3]{\href{tnk.pdf\##1#2_#3}{#1\nobreakspace#2.#3}}
+\newcommand*{\lref}[3]{\hyperlink{#1#2_#3}{#1\nobreakspace#2.#3}}
+\newcommand*{\bibht}{\bib@raise@anchor{\hypertarget{\bkname\thechnum_\curr@vs}{}}\nobreak\hskip\z@skip}
+\newcommand*{\bibhl}[2]{\hyperlink{#1}{#2}}
+\newcommand*{\bibpdfdest}[1]{\pdfdest name {#1} fit}
+
+\def\bk#1{\@ifundefined{bibbooks@#1@abbr}{#1}{\@nameuse{bibbooks@#1@abbr}}}
+\def\bibref{\@ifnextchar[{\bibref@c}{\bibref@a}}
+\def\bibref@a#1{\bibref@b#1\relax}
+\def\bibref@b#1 #2:#3\relax{\bibref@c[\vsfmt{#1}{#2}{#3}]{#1 #2:#3}}
+\def\bibref@c[#1]#2{%
+  \immediate\write\@mainaux{\string\need@ht{#2}}%
+  \bibref@d{#1}#2\relax
+}
+\def\bibref@d#1#2 #3:#4\relax{\hyperlink{#2#3_#4}{#1}}
+\def\need@ht#1{\need@ht@a#1\relax}
+\def\need@ht@a#1 #2:#3\relax{\global\@namedef{do@ht@#1@#2@#3}{}}
+\providecommand\vsfmt[3]{\bk{#1}\nobreakspace#2.#3}
+
+\newif\if@firstvs@ch
+\newif\if@firstvs@bk
+\newcounter{chnum}
+\newcounter{nnotes}
+
+\def\treat@colon{%
+  \edef\restore@colon{\catcode58=\the\catcode58 \relax}%
+  \catcode58=12
+}
+
+\newif\if@vs@dc@do
+% XXX
+\def\vs{\ifparvs\par\fi\treat@colon\@ifnextchar\bgroup\@vs\@@vs}
+\def\@vs#1{\@@vs #1 \ignorespaces}
+\def\@@vs#1 #2:#3 {%
+  \restore@colon
+  \@vs@dc@dofalse
+  \def\test@bk{#1}%
+  \ifx\bkname\test@bk\else\global\@firstvs@chtrue\global\@firstvs@bktrue\fi
+  \def\test@ch{#2}%
+  \ifx\curr@ch\test@ch\else\global\@firstvs@chtrue\fi
+  \if@firstvs@bk
+      \@vs@dc@dotrue
+  \fi
+  \if@firstvs@ch
+      \par\if@vs@dc@do\else\leavevmode\fi
+  \else\hspace{0.2ex}\fi
+  \gdef\bkname{#1}%
+  \gdef\curr@ch{#2}%
+  \gdef\curr@vs{#3}%
+  \setcounter{chnum}{#2}%
+  \if@vs@dc@do
+    \expandafter\vs@test@emph
+  \else
+    \let\vs@emph\@empty
+    \vs@e
+    % FIXME review \ignorespaces usage and also use \@firstofone
+    % to not loose possible kern when the first letter is enclosed in braces
+    \ignorespaces
+  \fi
+}
+\def\vs@test@emph{%
+  \@ifnextchar\bibemph{\vs@a}{\vs@b}%
+}
+\def\vs@a#1#2{% #1 is \bibemph
+  \vs@c#2\@nil
+  \vs@d
+}
+\def\vs@c#1#2\@nil{%
+  \def\vs@dc{#1}%
+  \def\vs@emph{#2}%
+  \ifx\vs@emph\@empty
+    \let\vs@emph\ignorespaces
+  \else
+    \def\vs@emph{\bibemph{#2}}%
+  \fi
+}
+\def\vs@b#1{%
+  \def\vs@dc{#1}%
+  \let\vs@emph\@empty
+  \vs@d
+}
+\def\vs@d{%
+  \lettrine{\textcolor{\bibdropcapscolor}{\vs@dc}}{}%
+  \vs@e
+}
+\def\vs@zero{0}
+\def\vs@e{%
+  \if@firstvs@ch
+    \global\@firstvs@chfalse
+    \@ifundefined{deferred@bibpdfbookmark}{}{%
+      \deferred@bibpdfbookmark
+      \let\deferred@bibpdfbookmark\@undefined
+    }%
+    \setcounter{nnotes}{0}%
+    \ifnum\c@chnum>0
+      \bibchap
+    \fi
+    \global\@firstvs@bkfalse
+  \else
+    \ifx\curr@vs\vs@zero\else
+        \print@vssup{\curr@vs}%
+    \fi
+  \fi
+  \ifx\curr@vs\vs@zero\else
+    \write@mark{vs}{{\thechnum}{\curr@vs}}%
+  \fi
+  \ifcsname do@ht@\bkname @\curr@ch @\curr@vs\endcsname\bibht\fi
+  \nobreak\hskip\z@skip
+  \vs@emph
+}
+\protected\def\printvssup#1{\print@vssup{#1}}
+
+\def\vs@range@a#1#2#3#4{\vs@range@b#2#4}
+\def\vs@range@b#1#2#3#4{%
+  \ifnum #1=#3
+    \def\vs@temp@a{#2}%
+    \def\vs@temp@b{#4}%
+    \ifx\vs@temp@a\vs@temp@b
+      {\bibheadchapsize#1.}{\bibheadversesize#2}%
+    \else
+      {\bibheadchapsize#1.}{\bibheadversesize#2--#4}%
+    \fi
+  \else
+    {\bibheadchapsize#1.}{\bibheadversesize#2--{\bibheadchapsize#3}.\bibheadversesize#4}%
+  \fi
+}
+
+% use eTeX's extended marks for fancy headers
+\def\bibnewmark#1{\expandafter\newmarks\csname bibmark@#1\endcsname}
+\def\bibmark#1#2{%
+  \@temptokena{#2}%
+  \expandafter\marks\csname bibmark@#1\endcsname{\the\@temptokena}%
+  \if@nobreak\ifvmode\nobreak\fi\fi
+}
+\def\bibtopmark#1{\expandafter\topmarks\csname bibmark@#1\endcsname}
+\def\bibfirstmark#1{\expandafter\firstmarks\csname bibmark@#1\endcsname}
+\def\bibbotmark#1{\expandafter\botmarks\csname bibmark@#1\endcsname}
+
+\bibnewmark{book}
+
+\newcommand{\clp}{\clearpage{\pagestyle{empty}\cleardoublepage}}
+
+\def\@makefnmark{}
+
+\def\bibdf{\leaders\hbox to 0.7em{\hss.\hss}\hfill}
+\DeclareTextCommandDefault{\textellipsis}{.\kern\fontdimen3\font.\kern\fontdimen3\font.} % corrected \textellipsis
+\newcommand*{\bibemph}[1]{\emph{#1}}
+%\newcommand{\ts}[1]{\@textsuperscript{#1}}
+\newcommand{\ts}[1]{\textsuperscript{#1}}
+\newcommand{\tb}[1]{\textsubscript{#1}}
+\def\overprint#1#2{\setbox\z@\hbox{#1}\rlap{\hb@xt@\wd\z@{\hss#2\hss}}#1}
+\def\backslashed#1{\overprint{#1}{\textbackslash}}
+\newcommand{\nocopyright}{\overprint{\textcopyright}{{\LARGE\texttimes}}}
+
+\def\@ubook#1#2#3#4[#5]{%
+  % #1 title to go on the first page.
+  % #2 title to go into the heading.
+  % #3 title to go in the PDF bookmark.
+  % #4 anchor for references.
+  % #5 optional TOC entry, if absent then #3 (bookmark name) is used.
+  \label{#4}\hypertarget{#4}{}%
+  \bibpdfbookmark[1]{#3}{#4}%
+  \@writebibtoc{\protect\bibtocline{bibbk}{#5}{#4}}%
+  \bibmark{book}{#2}%
+  \global\let\curr@ch\@empty
+  \bibbookend
+  \ifdoublecol\begin{multicols}{2}\fi
+}
+
+\RequirePackage{keyval}
+\define@key{bibbooks}{inline}{\@namedef{bibbooks@\curr@book @inline}{#1}}
+\define@key{bibbooks}{toc}{\@namedef{bibbooks@\curr@book @toc}{#1}}
+\define@key{bibbooks}{bookmark}{\@namedef{bibbooks@\curr@book @bookmark}{#1}}
+\define@key{bibbooks}{header}{\@namedef{bibbooks@\curr@book @header}{#1}}
+\define@key{bibbooks}{headerleft}{\@namedef{bibbooks@\curr@book @headerleft}{#1}}
+\define@key{bibbooks}{headerright}{\@namedef{bibbooks@\curr@book @headerright}{#1}}
+\define@key{bibbooks}{abbr}{\protected@write\@auxout{}{\string\setbibbookattr{\curr@book}{abbr}{#1}}}
+\def\bibbookattr#1#2{\csname bibbooks@#1@#2\endcsname}
+\def\setbibbookattr#1#2#3{\global\@namedef{bibbooks@#1@#2}{#3}}
+\def\ubookdescr#1#2{\def\curr@book{#1}\setkeys{bibbooks}{#2}%
+  \@ubook
+    {\bibbookattr{#1}{inline}}%
+    {\bibbookattr{#1}{header}}%
+    {\bibbookattr{#1}{bookmark}}%
+    {#1}[\bibbookattr{#1}{toc}]}
+
+
+\newwrite\tf@fn@chk
+\immediate\openout\tf@fn@chk\jobname.fnchk
+\newcounter{fn@seq}
+\protected\def\fn@chk@a{\stepcounter{fn@seq}\protected@write\tf@fn@chk{}{a \thefn@seq\space\thepage}}
+\protected\def\fn@chk@b{\protected@write\tf@fn@chk{}{b \thefn@seq\space\thepage}}
+\protected\def\bib@footnote#1{\fn@chk@a\footnote{\fn@chk@b #1}}
+\protected\def\bib@footnotetext#1{\fn@chk@a\footnotetext{\fn@chk@b #1}}
+
+\def\fn#1{%
+  \leavevmode\unskip
+  \stepcounter{nnotes}%
+  \ifnum\c@nnotes=1 % first note in this chapter
+      \bib@footnotetext{%
+        {\bibfnchapsize\thechnum.}{\bibfnvssize\curr@vs}.\nobreakspace#1}%
+  \else
+      \bib@footnotetext{%
+        {\bibfnvssize\curr@vs}.\nobreakspace#1}%
+  \fi
+}
+
+% table of contents generation
+\multicolsep=0pt
+\columnseprule=0.4pt
+\def\@pnumwidth{27pt}
+\def\@tocrmarg{25pt}
+\AtEndDocument{%
+  \immediate\write\@mainaux{\string\@writefile{bibtoc}{\string\bibtocfinish}}%
+  \newwrite\tf@bibtoc
+  \immediate\openout\tf@bibtoc\jobname.bibtoc
+}
+\def\bibpart#1#2#3{%
+  \bibpdfbookmark{#2}{#3}%
+  \@writebibtoc{\protect\bibtocline{bibpt}{#1}{#3}}%
+}
+\def\@writebibtoc#1{%
+  \protected@write\@mainaux{}{\string\@writefile{bibtoc}{#1}}%
+}
+\def\bibtoc@style@onecol{onecol}
+\def\bibtoc@style@twocol{twocol}
+\def\bibtocline#1{\csname l@#1\endcsname}
+\def\bibtocpgmark#1{\leftline{\hb@xt@\@pnumwidth{\hfil\fontsize{10}{12}\selectfont#1}}}
+\def\l@bibbk#1#2{\@dottedtocline{1}{0pt}{0pt}{#1}{\bibpr{#2}}}
+\def\l@bibpt#1#2{%
+  \ifx\bibtoc@style\bibtoc@style@twocol
+   \ifnum\col@number>\@ne\end{multicols}\fi
+  \fi
+  %\vspace*{\stretch{1}}%
+  \begin{center}\bibtocheadfont#1\end{center}%
+  \ifx\bibtoc@style\bibtoc@style@twocol
+    \@@line{\hss\small\bibpage\hb@xt@\columnsep
+      {\hss\vrule\@height.7\baselineskip\@depth.7\baselineskip\@width\columnseprule\hss}\hss\small\bibpage}%
+    \begin{multicols}{2}%
+    \raggedcolumns
+  \else
+    \rightline{\small\bibpage}%
+  \fi
+}
+\def\bibtocfinish{\ifx\bibtoc@style\bibtoc@style@twocol\ifnum\col@number>\@ne\end{multicols}\fi\clearpage\fi}
+\def\bibtableofcontents#1{%
+  \def\bibtoc@style{#1}%
+  \bibpdfbookmark{\bibcontname}{cnt}%
+  \bibtocfont
+  \thispagestyle{empty}%
+  \@input{\jobname.bibtoc}%
+}
+
+% marks emulation via \write to avoid conflict with marn package
+\def\write@mark#1#2{%
+  \@ifundefined{c@mark@serial@#1}{\newcounter{mark@serial@#1}}{}%
+  \stepcounter{mark@serial@#1}%
+  \protected@write\@auxout{}{\protect\process@mark{#1}{\the\value{mark@serial@#1}}{\thepage}{#2}}%
+}
+\def\process@mark#1#2#3#4{%
+  \@ifundefined{mark@#1@#3}{%
+    \global\@namedef{mark@#1@#3}{{#2}{#4}{#2}{#4}}%
+  }{%
+    \expandafter\set@marks@a\csname mark@#1@#3\endcsname{#2}{#4}%
+  }%
+}
+\def\set@marks@a#1#2#3{%
+  \expandafter\set@marks@b#1#1{#2}{#3}%
+  \expandafter\set@marks@c#1#1{#2}{#3}%
+}
+\def\set@marks@b#1#2#3#4#5#6#7{\ifnum #6<#1 \gdef#5{{#6}{#7}{#3}{#4}}\fi}
+\def\set@marks@c#1#2#3#4#5#6#7{\ifnum #6>#3 \gdef#5{{#1}{#2}{#6}{#7}}\fi}
+
+% redefine the \include behavior to not use \clearpage
+% (needed e.g. for two-column layout to prevent unbalanced columns)
+% don't \end{multicols} unless we are using doublecol option
+\def\@include#1 {%
+  \@tempswatrue
+  \if@partsw
+    \@tempswafalse
+    \edef\reserved@b{#1}%
+    \@for\reserved@a:=\@partlist\do
+      {\ifx\reserved@a\reserved@b\@tempswatrue\fi}%
+  \fi
+  \if@tempswa
+    \@input{#1.tex}%
+    \ifdoublecol\ifnum\col@number>\@ne\end{multicols}\fi\fi
+  \fi
+}
+
+% new datetime package must be loaded after babel
+\RequirePackage{datetime}
+\def\DTtoday{\formatdate{\day}{\month}{\year}}
+\def\shorttoday{{\shortdate\showdowfalse\formatdate{\day}{\month}{\year}}}
