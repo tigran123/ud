@@ -25,15 +25,13 @@
 \protected\def\hyph#1#2#3{\discretionary{#1\char\hyphenchar\font}{#2}{#3}}
 
 \RequirePackage[perpage]{footmisc}
-\RequirePackage{fancyhdr,color,etex,multicol,amssymb,xltxtra,polyglossia,hyphenat,ulem,xcolor,pagecolor,afterpage,float,pifont,fancybox,pdfpages}
+\RequirePackage{fancyhdr,color,etex,multicol,amssymb,xltxtra,polyglossia,hyphenat,xcolor,float,pifont,fancybox,pdfpages}
 
 \setlength{\fboxsep}{7pt}
 
 \newcommand{\bibdropcapscolor}{black}
 \newcommand{\bibtocfont}{\fontsize{11}{13.2}\selectfont}
 \newcommand{\bibtocheadfont}{\Large\scshape}
-\newcommand{\bibfnchapsize}{\bfseries\normalsize}
-\newcommand{\bibfnvssize}{\bfseries\small}
 \newcommand{\bibheadfont}{\normalsize\scshape}
 \newcommand{\bibheadchapsize}{\normalfont\normalsize}
 \newcommand{\bibheadversesize}{\normalfont\footnotesize}
@@ -41,24 +39,22 @@
 \newcommand{\bibpage}{\pagename}
 \newcommand{\bibcontname}{The Titles of the Papers}
 
-   \long\def\makefootnoteparagraph{\unvbox\footins \makehboxofhboxes
-    \setbox\FN@tempboxa=\hbox{\unhbox\FN@tempboxa \removehboxes}
-    \hsize\textwidth
-    \@parboxrestore
-    \baselineskip=\footnotebaselineskip
-    \noindent
-    \rule{\z@}{\footnotesep}%
-    \unhbox\FN@tempboxa\par
-  }
-  \long\def\@makefntext#1{\leavevmode
-    \@makefnmark\nobreak
-    #1% removed \hskip.5em\relax before #1
-  }
+\long\def\@makefntext#1{\leavevmode\@makefnmark\nobreak\hskip.3em\relax#1}
 
 \RequirePackage{lettrine}
 \setcounter{DefaultLines}{3}
 
-\RequirePackage[plainpages=false,hyperfootnotes=false,pdfpagelabels,colorlinks,linkcolor=black,anchorcolor=black,citecolor=black,filecolor=black,menucolor=black,pagecolor=black,urlcolor=blue]{hyperref}
+\RequirePackage[plainpages=false,
+                hyperfootnotes=false,
+                pdfpagelabels,
+                colorlinks,
+                linkcolor=black,
+                anchorcolor=black,
+                citecolor=black,
+                filecolor=black,
+                menucolor=black,
+                pagecolor=black,
+                urlcolor=blue]{hyperref}
 
 \protected\def\bib@raise@anchor#1{%
   \ifhmode
@@ -220,12 +216,9 @@
 
 \newcommand{\clp}{\clearpage{\pagestyle{empty}\cleardoublepage}}
 
-\def\@makefnmark{}
-
 \def\bibdf{\leaders\hbox to 0.7em{\hss.\hss}\hfill}
 \DeclareTextCommandDefault{\textellipsis}{.\kern\fontdimen3\font.\kern\fontdimen3\font.} % corrected \textellipsis
 \newcommand*{\bibemph}[1]{\emph{#1}}
-%\newcommand{\ts}[1]{\@textsuperscript{#1}}
 \newcommand{\ts}[1]{\textsuperscript{#1}}
 \newcommand{\tb}[1]{\textsubscript{#1}}
 \def\overprint#1#2{\setbox\z@\hbox{#1}\rlap{\hb@xt@\wd\z@{\hss#2\hss}}#1}
@@ -263,27 +256,6 @@
     {\bibbookattr{#1}{header}}%
     {\bibbookattr{#1}{bookmark}}%
     {#1}[\bibbookattr{#1}{toc}]}
-
-
-\newwrite\tf@fn@chk
-\immediate\openout\tf@fn@chk\jobname.fnchk
-\newcounter{fn@seq}
-\protected\def\fn@chk@a{\stepcounter{fn@seq}\protected@write\tf@fn@chk{}{a \thefn@seq\space\thepage}}
-\protected\def\fn@chk@b{\protected@write\tf@fn@chk{}{b \thefn@seq\space\thepage}}
-\protected\def\bib@footnote#1{\fn@chk@a\footnote{\fn@chk@b #1}}
-\protected\def\bib@footnotetext#1{\fn@chk@a\footnotetext{\fn@chk@b #1}}
-
-\def\fn#1{%
-  \leavevmode\unskip
-  \stepcounter{nnotes}%
-  \ifnum\c@nnotes=1 % first note in this chapter
-      \bib@footnotetext{%
-        {\bibfnchapsize\thechnum.}{\bibfnvssize\curr@vs}.\nobreakspace#1}%
-  \else
-      \bib@footnotetext{%
-        {\bibfnvssize\curr@vs}.\nobreakspace#1}%
-  \fi
-}
 
 % table of contents generation
 \multicolsep=0pt

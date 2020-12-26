@@ -46,7 +46,6 @@ ifndef DRAFT
 		@if test -f $(WORKDIR)/$(MOD).idx; then makeindex -q $(WORKDIR)/$(MOD); fi
 		$(LATEX)
 		@if test -f $(WORKDIR)/$(MOD).idx; then makeindex -q $(WORKDIR)/$(MOD); fi
-		@if test -s $(WORKDIR)/$(MOD).fnchk; then perl bin/fnchk.pl < $(WORKDIR)/$(MOD).fnchk; fi
 endif
 		@mv $(WORKDIR)/$(MOD).pdf .
 

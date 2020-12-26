@@ -10,7 +10,7 @@
 \tunemarkuptag{pgnexus10}
 %\tunemarkuptag{pgthinmob}
 
-\RequirePackage[figure,curq,nfnst,nfnc]{totalcount}
+\RequirePackage[figure,curq,nfnst]{totalcount}
 \RequirePackage{caption,makeidx}
 \RequirePackage[columns=1,font=current]{idxlayout}
 \RequirePackage[parvs]{ubook}
@@ -284,7 +284,6 @@
    \newpage
 }
 
-\newcounter{nfnc}
 \newcounter{nfnst}
 \newcounter{paperqcount}
 \newcounter{curq}
@@ -370,7 +369,7 @@
 \tunemarkuptwo{nofnt}{%
  \def\fnst#1{}
 }{%
- \def\fnst#1{\kern.01em$^*$\stepcounter{nfnst}\fn{#1}}
+ \def\fnst#1{\stepcounter{nfnst}\footnote{#1}}
 }
 
 \newlength{\minitocafterskip}
@@ -411,11 +410,9 @@
 \setlength{\minitocafterskip}{0.15ex}
 \def\pc{{\fontsize{9}{9}\selectfont\P}\kern2pt}
 \renewcommand{\bibheadfont}{\headingfont\fontsize{7.7}{7.7}\selectfont}
-\newcommand{\bibbookend}{\fontsize{17}{18.3}\selectfont}
-\newcommand{\urantiamainfontsize}{17/18.3}
+\newcommand{\bibbookend}{\fontsize{17}{19}\selectfont}
+\newcommand{\urantiamainfontsize}{17/19}
 \renewcommand{\footnotesize}{\fontsize{14}{16}\selectfont}
-\renewcommand{\bibfnchapsize}{\headerfont\normalsize\bfseries}
-\renewcommand{\bibfnvssize}{\headerfont\small\bfseries}
 \newcommand{\authorfont}{\authorfontfamily\fontsize{29}{8}\selectfont}%
 \newcommand{\introfontsize}{\fontsize{15.5}{17}\selectfont}
 \newcommand{\titlefontsize}{\fontsize{19}{28}\selectfont}
@@ -439,8 +436,6 @@
 \newcommand{\subfont}{\fontsize{14}{17}\itshape}
 \newcommand{\parttitlefontsize}{\addfontfeature{LetterSpace=4.0}\Large}
 \newcommand{\bibsectitlefont}{\sectiontitlefont\fontsize{9}{12}\selectfont}
-\renewcommand{\bibfnchapsize}{\headerfont\Large\bfseries}
-\renewcommand{\bibfnvssize}{\headerfont\large\bfseries}
 \newcommand{\bibbookend}{\fontsize{19}{21}\selectfont}
 \newcommand{\urantiamainfontsize}{19/21}
 \renewcommand{\footnotesize}{\fontsize{16}{18}\selectfont}
