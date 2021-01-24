@@ -7,8 +7,9 @@
 \def\tunemarkuptwo#1#2#3{\@ifundefined{tune@markup@#1}{#3}{#2}}
 
 % various page sizes
-\tunemarkuptag{pgnexus10}
+%\tunemarkuptag{pgnexus10}
 %\tunemarkuptag{pgthinmob}
+\tunemarkuptag{pgkoboaurahd}
 
 \RequirePackage[figure,curq,nfnst]{totalcount}
 \RequirePackage{caption,makeidx}
@@ -51,6 +52,9 @@
 
 % Google Nexus 10 (or any Android 10" colour device)
 \tunemarkup{pgnexus10}{\RequirePackage[dvips,headheight=19pt,headsep=2pt,vmargin={0.2in,0.15in},hmargin={0.1in},twoside=true,papersize={135.0mm,216mm}]{geometry}}
+
+% Kobo Aura HD 7"
+\tunemarkup{pgkoboaurahd}{\RequirePackage[dvips,headheight=15pt,headsep=4pt,vmargin={0.2in,0.13in},hmargin={0.05in},twoside=true,papersize={102.0mm,136.0mm}]{geometry}}
 
 % allow inter-paragraph space to grow
 \setlength{\parskip}{2pt plus 5pt minus 2pt}
@@ -128,7 +132,7 @@
     {\centering\sectiontitlefont\parbox{\columnwidth}{\mdseries\centering\ifx\secname\ackn\itshape\uppercase{#1}\else\uppercase{\thesecnum.\bibnobreakspace #1}\fi}\\*[3pt]}%
 \def\bibnobreakspace{ }
     % XXX for section-level bookmarks uncomment the following line and comment the one after
-    \bib@raise@anchor{\bibpdfbookmark[2]{#1}{\bkname_\thechnum_\curr@vs}\label{p\thepaper_\thesecnum}\hypertarget{p\thepaper_\thesecnum}{}}%
+    \ifx\secname\ackn\else\bib@raise@anchor{\bibpdfbookmark[2]{\thesecnum. #1}{\bkname_\thechnum_\curr@vs}\label{p\thepaper_\thesecnum}\hypertarget{p\thepaper_\thesecnum}{}}\fi%
 \def\bibnobreakspace{\kern5pt\relax}
     \flushbottom\addtolength{\topskip}{0pt plus -20pt}
 }
@@ -211,9 +215,40 @@
      \put(26.4,-43.6){\botr}
    \end{picture}%
 }%
+\tunemarkup{pgkoboaurahd}{%
+\setlength{\unitlength}{6.6pt}%
+\fontsize{\unitlength}{\unitlength}\usefont{U}{webo}{xl}{n}
+   \begin{picture}(0,0)(1.6,-56.0)%
+     % top left corner
+     \put(0,0){\topl}
+     % top plank
+     \multiput(1,0)(4,0){10}{\topplank}
+     % top right corner
+     \put(41,0){\topprer}
+     \put(42,0){\topr}
+     % right plank
+     \multiput(42,-1)(0,-4){14}{\hr}
+     \multiput(42,-2)(0,-4){14}{\hhr}
+     \multiput(42,-3)(0,-4){14}{\hhhr}
+     \multiput(42,-4)(0,-4){14}{\hhhhr}
+     % left plank
+     \multiput(0,-1)(0,-4){14}{\hhhhl}
+     \multiput(0,-2)(0,-4){14}{\hl}
+     \multiput(0,-3)(0,-4){14}{\hhl}
+     \multiput(0,-4)(0,-4){14}{\hhhl}
+     % bottom left corner
+     \put(0,-57){\botl}
+     % bottom plank
+     \multiput(1,-57)(4,0){10}{\botplank}
+     % bottom right corner
+     \put(41,-57){\botprer}
+     \put(42,-57){\botr}
+   \end{picture}%
+}%
 \endgroup
 }
 
+\tunemarkup{pgkoboaurahd}{\tolerance=2000}
 \tunemarkup{pgnexus10}{\tolerance=2000}
 \tunemarkup{pgthinmob}{\tolerance=9999}
 
@@ -376,11 +411,14 @@
 \setlength{\minitocafterskip}{-1ex}
 
 % for mini-TOC of each paper
-\newcommand{\usectiontitle}[3]{%
-   {\bibsectitlefont
-     \makebox[0.08\linewidth][r]{#2. }%
-     \makebox[0.85\linewidth][l]{#3\bibdf}%
-     \makebox[0.06\linewidth][r]{\bibpr{p#1_#2}}%
+\newcounter{uminitocnum}
+
+\newcommand{\uminitoc}[1]{%
+   {\stepcounter{uminitocnum}%
+    \bibsectitlefont
+    \makebox[0.08\linewidth][r]{\theuminitocnum. }%
+    \makebox[0.85\linewidth][l]{#1\bibdf}%
+    \makebox[0.06\linewidth][r]{\bibpr{p\thepaper_\theuminitocnum}}%
    }\vspace{\minitocafterskip}\linebreak
 }
 
@@ -388,11 +426,10 @@
 \newcommand{\numw}{0.08\linewidth}
 \newcommand{\txtw}{0.81\linewidth}
 
+\tunemarkup{pgnexus10}{%
 \definecolor{ubblue}{rgb}{0.0, 0.3, 0.6}
 \definecolor{ubgreen}{rgb}{0.0, 0.4, 0.0}
 \definecolor{ubdarkred}{rgb}{0.8, 0.0, 0.0}
-
-\tunemarkup{pgnexus10}{%
 \protected\def\print@vssup#1{\makebox[0.4em][l]{\@textsuperscript{\fontsize{7}{7}\bfseries#1}}\kern0.3em\relax}
 \newcommand{\titlesepbig}{{\usefont{U}{webo}{xl}{n}\huge\textcolor{ubblue}{ahb}}}
 \newcommand{\bibpaperfont}{\headingfont\fontsize{13}{15}\selectfont}
@@ -420,6 +457,9 @@
 }
 
 \tunemarkup{pgthinmob}{%
+\definecolor{ubblue}{rgb}{0.0, 0.3, 0.6}
+\definecolor{ubgreen}{rgb}{0.0, 0.4, 0.0}
+\definecolor{ubdarkred}{rgb}{0.8, 0.0, 0.0}
 \protected\def\print@vssup#1{\makebox[0.2em][r]{\@textsuperscript{\headerfont\fontsize{10}{10}\selectfont#1}}\kern0.2em\relax}
 \def\pc{{\fontsize{12}{12}\selectfont\P}\kern2pt}
 \newcommand{\titlesepbig}{{\usefont{U}{webo}{xl}{n}\Large\textcolor{ubblue}{ahb}}}
@@ -445,6 +485,37 @@
 \newcommand{\titlefontsize}{\fontsize{20}{22}\selectfont}
 \newcommand{\indexfontsize}{\fontsize{19}{28}\selectfont}
 }
+
+\tunemarkup{pgkoboaurahd}{%
+\definecolor{ubblue}{rgb}{0.0, 0.0, 0.0}
+\definecolor{ubgreen}{rgb}{0.0, 0.0, 0.0}
+\definecolor{ubdarkred}{rgb}{0.0, 0.0, 0.0}
+\protected\def\print@vssup#1{\makebox[0.4em][l]{\@textsuperscript{\fontsize{7}{7}\bfseries#1}}\kern0.3em\relax}
+\newcommand{\titlesepbig}{{\usefont{U}{webo}{xl}{n}\huge\textcolor{ubblue}{ahb}}}
+\newcommand{\bibpaperfont}{\headingfont\fontsize{13}{15}\selectfont}
+\newcommand{\bibpapertitlefont}{\headingfont\fontsize{17}{19}\bfseries}
+\newcommand{\bibtocsuperheadfont}{\fontsize{14}{20}\selectfont}
+\renewcommand{\bibtocheadfont}{\addfontfeature{LetterSpace=1.2}\fontsize{11}{12}\bfseries}
+\renewcommand{\bibtocfont}{\fontsize{8.8}{17}\selectfont}
+\newcommand{\bibheadpapersize}{\fontsize{8.0}{8.0}\selectfont}
+\renewcommand{\bibheadchapsize}{\fontsize{7.5}{7.5}\selectfont}
+\renewcommand{\bibheadversesize}{\fontsize{7}{7}\selectfont}
+\renewcommand{\bibheadpagesize}{\fontsize{8}{8}\selectfont}
+\newcommand{\subfont}{\fontsize{12}{15}\itshape}
+\newcommand{\parttitlefontsize}{\addfontfeature{LetterSpace=3.0}\large}
+\newcommand{\bibsectitlefont}{\sectiontitlefont\fontsize{9}{10}\selectfont}
+\setlength{\minitocafterskip}{0.15ex}
+\def\pc{{\fontsize{9}{9}\selectfont\P}\kern2pt}
+\renewcommand{\bibheadfont}{\headingfont\fontsize{7.7}{7.7}\selectfont}
+\newcommand{\bibbookend}{\fontsize{16}{18}\selectfont}
+\newcommand{\urantiamainfontsize}{16/18}
+\renewcommand{\footnotesize}{\fontsize{14}{16}\selectfont}
+\newcommand{\authorfont}{\authorfontfamily\fontsize{24}{8}\selectfont}%
+\newcommand{\introfontsize}{\fontsize{15.5}{17}\selectfont}
+\newcommand{\titlefontsize}{\fontsize{15}{22}\selectfont}
+\newcommand{\indexfontsize}{\fontsize{19}{28}\selectfont}
+}
+
 
 \newcommand{\vsetoff}{\vspace*{1ex}}%
 
@@ -498,12 +569,9 @@
       \ifnum #1=32\partii\fi
       \ifnum #1=57\partiii\fi
       \ifnum #1=120\partiv\fi
-      \bibpaperfont
-         \ifnum #1>0\papertxt\nobreakspace\ №\,#1\\[1ex]\fi
-         \tunemarkuptwo{pgcrownq}{\space\MakeUppercase{#2}\\}{%
-           {\addfontfeatures{LetterSpace=3.0}\bibpapertitlefont\hyperlink{qc#1}{\MakeUppercase{#2}}}\\[1ex]
-           {\mdseries\input{tex/p\thepaper-sections.tex}}%
-         }%
+      \addfontfeatures{LetterSpace=3.0}%
+      \ifnum #1>0\bibpaperfont\papertxt\nobreakspace\ №\,#1\\[1ex]\fi
+      \bibpapertitlefont\hyperlink{qc#1}{\MakeUppercase{#2}}%
    \end{center}%
 }
 
@@ -513,6 +581,7 @@
 \newpage%
 \setcounter{paper}{#1}%
 \setcounter{secnum}{0}%
+\setcounter{uminitocnum}{0}
 \bibpaperdisplay{#1}{#2}%
  \ubookdescr{p#1}{
    toc={\makebox[\numw][r]{#1.\,}\makebox[\txtw][l]{#2\bibdf}},
@@ -521,50 +590,39 @@
    abbr={p#1}
 }%
 \fancyhead[CO]{\bibheadfont\MakeUppercase{#2}}%
-\bib@raise@anchor{\bibpdfbookmark[2]{0. #2}{p#1_0}}%
 }
 
 \newcommand{\parti}{%
 \thispagestyle{empty}%
-\vspace*{\stretch{0.1}}%
 {\parttitlefont\parttitlefontsize\partitxt\\\partiup\\[2ex]}
 \begin{center}\subfont\partisub\end{center}%
-\vspace*{\stretch{0.3}}%
 \bibpart{\partitxt. \partiup}{\partimix}{pt1}%
-\begin{center}\includegraphics[width=0.7\columnwidth]{images/Blake-The-Ancient-of-Days.jpg}\end{center}
-\vspace*{\stretch{0.3}}%
+\begin{center}\includegraphics[width=0.6\columnwidth]{images/Blake-The-Ancient-of-Days.jpg}\end{center}
 \newpage%
 }
 
 \newcommand{\partii}{%
 \thispagestyle{empty}%
-\vspace*{\stretch{0.1}}%
 {\parttitlefont\parttitlefontsize\partiitxt\\\partiiup\\[2ex]}
 \begin{center}\subfont\partiisub\end{center}%
-\vspace*{\stretch{0.9}}%
 \bibpart{\partiitxt. \partiiup}{\partiimix}{pt2}%
 \newpage%
 }
 
 \newcommand{\partiii}{%
 \thispagestyle{empty}%
-\vspace*{\stretch{0.1}}%
 {\parttitlefont\parttitlefontsize\partiiitxt\\\partiiiup\\[2ex]}
 \begin{center}\subfont\partiiisub\end{center}%
-\vspace*{\stretch{0.9}}%
 \bibpart{\partiiitxt. \partiiiup}{\partiiimix}{pt3}%
 \newpage%
 }
 
 \newcommand{\partiv}{%
 \thispagestyle{empty}%
-\vspace*{\stretch{0.1}}%
 {\parttitlefont\parttitlefontsize\partivtxt\\\partivup\\[2ex]}
 \begin{center}\subfont\partivsubone\\[2ex]\partivsubtwo\end{center}%
-\vspace*{\stretch{0.4}}%
 \bibpart{\partivtxt. \partivup}{\partivmix}{pt4}%
-\begin{center}\includegraphics[width=0.7\columnwidth]{images/Cosmic-Jesus.jpg}\end{center}
-\vspace*{\stretch{0.4}}%
+\begin{center}\includegraphics[width=0.6\columnwidth]{images/Cosmic-Jesus.jpg}\end{center}
 \newpage%
 }
 
