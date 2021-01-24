@@ -125,7 +125,7 @@
 \def\secname{#1}
     \stepcounter{secnum}%
     \par\raggedbottom\addtolength{\topskip}{0pt plus 20pt}\vspace*{1ex}%
-    {\centering\sectiontitlefont\parbox{\columnwidth}{\mdseries\ifx\secname\ackn\itshape\fi\centering\uppercase{#1}}\\*[3pt]}%
+    {\centering\sectiontitlefont\parbox{\columnwidth}{\mdseries\centering\ifx\secname\ackn\itshape\uppercase{#1}\else\uppercase{\thesecnum.\bibnobreakspace #1}\fi}\\*[3pt]}%
 \def\bibnobreakspace{ }
     % XXX for section-level bookmarks uncomment the following line and comment the one after
     \bib@raise@anchor{\bibpdfbookmark[2]{#1}{\bkname_\thechnum_\curr@vs}\label{p\thepaper_\thesecnum}\hypertarget{p\thepaper_\thesecnum}{}}%
