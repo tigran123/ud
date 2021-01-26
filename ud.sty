@@ -7,9 +7,9 @@
 \def\tunemarkuptwo#1#2#3{\@ifundefined{tune@markup@#1}{#3}{#2}}
 
 % various page sizes
-%\tunemarkuptag{pgnexus10}
+\tunemarkuptag{pgnexus10}
 %\tunemarkuptag{pgthinmob}
-\tunemarkuptag{pgkoboaurahd}
+%\tunemarkuptag{pgkoboaurahd}
 
 \RequirePackage[figure,curq,nfnst]{totalcount}
 \RequirePackage{caption,makeidx}
@@ -83,7 +83,7 @@
 \fancyhead[L]{\bibheadfont\vs@range}
 \fancyhead[R]{\bibheadfont\bibheadpagesize\thepage}
 
-\renewcommand{\author}[1]{\thispagestyle{empty}\begin{center}\authorfont\textcolor{ubblue}{#1}\end{center}\fancyhead[CE]{\bibheadfont\MakeUppercase{#1}}}
+\renewcommand{\author}[1]{\thispagestyle{empty}\begin{center}\authorfontfamily\authorfontsize\textcolor{ubblue}{#1}\end{center}\fancyhead[CE]{\bibheadfont\MakeUppercase{#1}}}
 
 \newcommand{\upartheader}[1]{%
    \par\vspace{3ex}\pagebreak[3]%
@@ -256,7 +256,6 @@
 
 \setlength{\columnsep}{3.5mm}
 \setlength\parindent{14\p@}
-\let\textcolour\textcolor
 
 % Cosmic Citizenship Quiz macros
 
@@ -407,19 +406,18 @@
  \def\fnst#1{\stepcounter{nfnst}\footnote{#1}}
 }
 
-\newlength{\minitocafterskip}
-\setlength{\minitocafterskip}{-1ex}
-
 % for mini-TOC of each paper
 \newcounter{uminitocnum}
 
 \newcommand{\uminitoc}[1]{%
-   {\stepcounter{uminitocnum}%
+   {%
+    \stepcounter{uminitocnum}%
     \bibsectitlefont
-    \makebox[0.08\linewidth][r]{\theuminitocnum. }%
+    \makebox[0.08\linewidth][r]{\theuminitocnum.\,}%
     \makebox[0.85\linewidth][l]{#1\bibdf}%
-    \makebox[0.06\linewidth][r]{\bibpr{p\thepaper_\theuminitocnum}}%
-   }\vspace{\minitocafterskip}\linebreak
+    \makebox[0.06\linewidth][r]{\bibpr{p\thepaper_\theuminitocnum}}\\%
+   }%
+   %\linebreak
 }
 
 % for TOC entries horizontal spacing
@@ -432,8 +430,8 @@
 \definecolor{ubdarkred}{rgb}{0.8, 0.0, 0.0}
 \protected\def\print@vssup#1{\makebox[0.4em][l]{\@textsuperscript{\fontsize{7}{7}\bfseries#1}}\kern0.3em\relax}
 \newcommand{\titlesepbig}{{\usefont{U}{webo}{xl}{n}\huge\textcolor{ubblue}{ahb}}}
-\newcommand{\bibpaperfont}{\headingfont\fontsize{13}{15}\selectfont}
-\newcommand{\bibpapertitlefont}{\headingfont\fontsize{17}{19}\bfseries}
+\newcommand{\bibpaperfont}{\headingfont\fontsize{12}{18}\selectfont}
+\newcommand{\bibpapertitlefont}{\headingfont\fontsize{14}{18}\selectfont}
 \newcommand{\bibtocsuperheadfont}{\fontsize{14}{20}\selectfont}
 \renewcommand{\bibtocheadfont}{\addfontfeature{LetterSpace=1.2}\fontsize{11}{12}\bfseries}
 \renewcommand{\bibtocfont}{\fontsize{8.8}{17}\selectfont}
@@ -444,13 +442,12 @@
 \newcommand{\subfont}{\fontsize{14}{18}\itshape}
 \newcommand{\parttitlefontsize}{\addfontfeature{LetterSpace=3.0}\LARGE}
 \newcommand{\bibsectitlefont}{\sectiontitlefont\fontsize{11}{13}\selectfont}
-\setlength{\minitocafterskip}{0.15ex}
 \def\pc{{\fontsize{9}{9}\selectfont\P}\kern2pt}
 \renewcommand{\bibheadfont}{\headingfont\fontsize{7.7}{7.7}\selectfont}
 \newcommand{\bibbookend}{\fontsize{17}{19}\selectfont}
 \newcommand{\urantiamainfontsize}{17/19}
 \renewcommand{\footnotesize}{\fontsize{14}{16}\selectfont}
-\newcommand{\authorfont}{\authorfontfamily\fontsize{29}{8}\selectfont}%
+\newcommand{\authorfontsize}{\fontsize{26}{8}\selectfont}%
 \newcommand{\introfontsize}{\fontsize{15.5}{17}\selectfont}
 \newcommand{\titlefontsize}{\fontsize{19}{28}\selectfont}
 \newcommand{\indexfontsize}{\fontsize{19}{28}\selectfont}
@@ -464,7 +461,7 @@
 \def\pc{{\fontsize{12}{12}\selectfont\P}\kern2pt}
 \newcommand{\titlesepbig}{{\usefont{U}{webo}{xl}{n}\Large\textcolor{ubblue}{ahb}}}
 \newcommand{\bibpaperfont}{\headingfont\fontsize{13}{15}\selectfont}
-\newcommand{\bibpapertitlefont}{\headingfont\fontsize{15}{17}\bfseries}
+\newcommand{\bibpapertitlefont}{\headingfont\fontsize{15}{17}\selectfont}
 \newcommand{\bibtocsuperheadfont}{\fontsize{14}{20}\selectfont}
 \renewcommand{\bibheadfont}{\headingfont\fontsize{7.2}{7.2}\selectfont}
 \renewcommand{\bibtocheadfont}{\addfontfeature{LetterSpace=1.2}\fontsize{12}{16}\bfseries}
@@ -479,8 +476,7 @@
 \newcommand{\bibbookend}{\fontsize{19}{21}\selectfont}
 \newcommand{\urantiamainfontsize}{19/21}
 \renewcommand{\footnotesize}{\fontsize{16}{18}\selectfont}
-\setlength{\minitocafterskip}{-0.15ex}
-\newcommand{\authorfont}{\authorfontfamily\fontsize{22}{9}\bfseries\itshape}%
+\newcommand{\authorfontsize}{\fontsize{22}{9}\bfseries\itshape}%
 \newcommand{\introfontsize}{\fontsize{17}{19}\selectfont}
 \newcommand{\titlefontsize}{\fontsize{20}{22}\selectfont}
 \newcommand{\indexfontsize}{\fontsize{19}{28}\selectfont}
@@ -492,8 +488,8 @@
 \definecolor{ubdarkred}{rgb}{0.0, 0.0, 0.0}
 \protected\def\print@vssup#1{\makebox[0.4em][l]{\@textsuperscript{\fontsize{7}{7}\bfseries#1}}\kern0.3em\relax}
 \newcommand{\titlesepbig}{{\usefont{U}{webo}{xl}{n}\huge\textcolor{ubblue}{ahb}}}
-\newcommand{\bibpaperfont}{\headingfont\fontsize{13}{15}\selectfont}
-\newcommand{\bibpapertitlefont}{\headingfont\fontsize{17}{19}\bfseries}
+\newcommand{\bibpaperfont}{\headingfont\fontsize{12}{16}\selectfont}
+\newcommand{\bibpapertitlefont}{\headingfont\fontsize{14}{16}\selectfont}
 \newcommand{\bibtocsuperheadfont}{\fontsize{14}{20}\selectfont}
 \renewcommand{\bibtocheadfont}{\addfontfeature{LetterSpace=1.2}\fontsize{11}{12}\bfseries}
 \renewcommand{\bibtocfont}{\fontsize{8.8}{17}\selectfont}
@@ -504,18 +500,16 @@
 \newcommand{\subfont}{\fontsize{12}{15}\itshape}
 \newcommand{\parttitlefontsize}{\addfontfeature{LetterSpace=3.0}\large}
 \newcommand{\bibsectitlefont}{\sectiontitlefont\fontsize{9}{10}\selectfont}
-\setlength{\minitocafterskip}{0.15ex}
 \def\pc{{\fontsize{9}{9}\selectfont\P}\kern2pt}
 \renewcommand{\bibheadfont}{\headingfont\fontsize{7.7}{7.7}\selectfont}
 \newcommand{\bibbookend}{\fontsize{16}{18}\selectfont}
 \newcommand{\urantiamainfontsize}{16/18}
 \renewcommand{\footnotesize}{\fontsize{14}{16}\selectfont}
-\newcommand{\authorfont}{\authorfontfamily\fontsize{24}{8}\selectfont}%
+\newcommand{\authorfontsize}{\fontsize{21}{8}\selectfont}%
 \newcommand{\introfontsize}{\fontsize{15.5}{17}\selectfont}
 \newcommand{\titlefontsize}{\fontsize{15}{22}\selectfont}
 \newcommand{\indexfontsize}{\fontsize{19}{28}\selectfont}
 }
-
 
 \newcommand{\vsetoff}{\vspace*{1ex}}%
 
@@ -523,7 +517,7 @@
 \hypersetup{%
   pdftitle={Пятое Эпохальное Откровение (Урантийские документы)},%
   pdfauthor={Tigran Aivazian <aivazian.tigran@gmail.com>},%
-  pdfcreator={Bibles.org.uk Typesetting Environment based on TeX Live 2020},%
+  pdfcreator={Bibles.org.uk типографская среда на базе TeX Live 2020},%
   pdfsubject={Урантийские документы на русском языке},%
   pdfkeywords={Урантия,Земля,Истина,Религия,Иисус,Откровение,Бог,Христианство,Библия,Писания,История},%
   pdflang={Russian},%
@@ -537,11 +531,6 @@
 
 \newfontfamily\hebrewfont[Mapping=tex-text,Script=Hebrew]{SBL Hebrew}
 \newcommand{\textheb}[1]{{\hebrewfont#1}}
-
-%\newfontfamily\armfont[Mapping=tex-text,Script=Armenian]{ArTarumianGrqiBardzr_U}
-%\newcommand{\textarm}[1]{{\armfont#1}}
-%\newfontfamily\chinesefont[Mapping=tex-text]{Code2000}
-%\newcommand{\textchinese}[1]{{\chinesefont#1}}
 
 \def\ackn{БЛАГОДАРНОСТЬ}
 \def\papertxt{ДОКУМЕНТ}
@@ -565,13 +554,8 @@
 
 \newcommand{\bibpaperdisplay}[2]{%
    \begin{center}%
-      \ifnum #1=0\parti\fi
-      \ifnum #1=32\partii\fi
-      \ifnum #1=57\partiii\fi
-      \ifnum #1=120\partiv\fi
-      \addfontfeatures{LetterSpace=3.0}%
-      \ifnum #1>0\bibpaperfont\papertxt\nobreakspace\ №\,#1\\[1ex]\fi
-      \bibpapertitlefont\hyperlink{qc#1}{\MakeUppercase{#2}}%
+   \ifnum #1>0\bibpaperfont\papertxt\nobreakspace\ №\,#1\\\fi
+   \bibpapertitlefont#2\\%
    \end{center}%
 }
 
@@ -593,37 +577,75 @@
 }
 
 \newcommand{\parti}{%
-\thispagestyle{empty}%
-{\parttitlefont\parttitlefontsize\partitxt\\\partiup\\[2ex]}
-\begin{center}\subfont\partisub\end{center}%
-\bibpart{\partitxt. \partiup}{\partimix}{pt1}%
-\begin{center}\includegraphics[width=0.6\columnwidth]{images/Blake-The-Ancient-of-Days.jpg}\end{center}
-\newpage%
+  \newpage
+  \thispagestyle{empty}%
+  \bibpart{\partitxt. \partiup}{\partimix}{pt1}%
+  \vspace*{\stretch{0.1}}%
+  \begin{center}%
+  {%
+    \parttitlefont\parttitlefontsize
+    \partitxt\\
+    \partiup\\[2ex]
+  }%
+  \subfont\partisub\\[4ex]%
+  \includegraphics[width=0.6\columnwidth]{images/Blake-The-Ancient-of-Days.jpg}%
+  \end{center}%
+  \vspace*{\stretch{0.5}}%
+  \newpage
 }
 
 \newcommand{\partii}{%
-\thispagestyle{empty}%
-{\parttitlefont\parttitlefontsize\partiitxt\\\partiiup\\[2ex]}
-\begin{center}\subfont\partiisub\end{center}%
-\bibpart{\partiitxt. \partiiup}{\partiimix}{pt2}%
-\newpage%
+  \newpage
+  \thispagestyle{empty}%
+  \bibpart{\partiitxt. \partiiup}{\partiimix}{pt2}%
+  \vspace*{\stretch{0.1}}%
+  \begin{center}%
+  {%
+    \parttitlefont\parttitlefontsize
+    \partiitxt\\
+    \partiiup\\[2ex]
+  }%
+  \subfont\partiisub\\
+  \end{center}%
+  \vspace*{\stretch{0.5}}%
+  \newpage
 }
 
 \newcommand{\partiii}{%
-\thispagestyle{empty}%
-{\parttitlefont\parttitlefontsize\partiiitxt\\\partiiiup\\[2ex]}
-\begin{center}\subfont\partiiisub\end{center}%
-\bibpart{\partiiitxt. \partiiiup}{\partiiimix}{pt3}%
-\newpage%
+  \newpage
+  \thispagestyle{empty}%
+  \bibpart{\partiiitxt. \partiiiup}{\partiiimix}{pt3}%
+  \vspace*{\stretch{0.1}}%
+  \begin{center}%
+  {%
+    \parttitlefont\parttitlefontsize
+    \partiiitxt\\
+    \partiiiup\\[2ex]
+  }%
+  \subfont\partiiisub\\
+  \end{center}%
+  \vspace*{\stretch{0.5}}%
+  \newpage
 }
 
 \newcommand{\partiv}{%
-\thispagestyle{empty}%
-{\parttitlefont\parttitlefontsize\partivtxt\\\partivup\\[2ex]}
-\begin{center}\subfont\partivsubone\\[2ex]\partivsubtwo\end{center}%
-\bibpart{\partivtxt. \partivup}{\partivmix}{pt4}%
-\begin{center}\includegraphics[width=0.6\columnwidth]{images/Cosmic-Jesus.jpg}\end{center}
-\newpage%
+  \newpage
+  \thispagestyle{empty}%
+  \bibpart{\partivtxt. \partivup}{\partivmix}{pt4}%
+  \vspace*{\stretch{0.1}}%
+  \begin{center}%
+  {%
+    \parttitlefont\parttitlefontsize
+    \partivtxt\\
+    \partivup\\[2ex]
+  }%
+  \subfont
+  \partivsubone\\[2ex]%
+  \partivsubtwo\\[4ex]%
+  \includegraphics[width=0.6\columnwidth]{images/Cosmic-Jesus.jpg}%
+  \end{center}%
+  \vspace*{\stretch{0.5}}%
+  \newpage
 }
 
 \begin{hyphenrules}{russian}
