@@ -439,7 +439,7 @@
 \renewcommand{\bibheadchapsize}{\fontsize{7.5}{7.5}\selectfont}
 \renewcommand{\bibheadversesize}{\fontsize{7}{7}\selectfont}
 \renewcommand{\bibheadpagesize}{\fontsize{8}{8}\selectfont}
-\newcommand{\subfont}{\fontsize{14}{18}\itshape}
+\newcommand{\subfont}{\fontsize{14}{17}\itshape}
 \newcommand{\parttitlefontsize}{\addfontfeature{LetterSpace=3.0}\LARGE}
 \newcommand{\bibsectitlefont}{\sectiontitlefont\fontsize{11}{13}\selectfont}
 \def\pc{{\fontsize{9}{9}\selectfont\P}\kern2pt}
@@ -584,13 +584,14 @@
   \begin{center}%
   {%
     \parttitlefont\parttitlefontsize
-    \partitxt\\
+    \partitxt\\[1ex]
     \partiup\\[2ex]
   }%
-  \subfont\partisub\\[4ex]%
+  \subfont\partisub\\%
+  \vspace*{\stretch{0.3}}%
   \includegraphics[width=0.6\columnwidth]{images/Blake-The-Ancient-of-Days.jpg}%
+  \vspace*{\stretch{0.3}}%
   \end{center}%
-  \vspace*{\stretch{0.5}}%
   \newpage
 }
 
@@ -602,7 +603,7 @@
   \begin{center}%
   {%
     \parttitlefont\parttitlefontsize
-    \partiitxt\\
+    \partiitxt\\[1ex]
     \partiiup\\[2ex]
   }%
   \subfont\partiisub\\
@@ -619,7 +620,7 @@
   \begin{center}%
   {%
     \parttitlefont\parttitlefontsize
-    \partiiitxt\\
+    \partiiitxt\\[1ex]
     \partiiiup\\[2ex]
   }%
   \subfont\partiiisub\\
@@ -636,15 +637,16 @@
   \begin{center}%
   {%
     \parttitlefont\parttitlefontsize
-    \partivtxt\\
+    \partivtxt\\[1ex]
     \partivup\\[2ex]
   }%
   \subfont
-  \partivsubone\\[2ex]%
-  \partivsubtwo\\[4ex]%
+  \partivsubone\\[1ex]%
+  \partivsubtwo\\%
+  \vspace*{\stretch{0.3}}%
   \tunemarkup{private}{\includegraphics[width=0.6\columnwidth]{images/Cosmic-Jesus.jpg}}%
+  \vspace*{\stretch{0.3}}%
   \end{center}%
-  \vspace*{\stretch{0.5}}%
   \newpage
 }
 
