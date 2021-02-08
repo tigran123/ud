@@ -263,7 +263,7 @@
 \newcommand{\answersfont}{\fontsize{16}{19}\selectfont}
 
 \newcommand{\quizheader}{%
-   \newpage\pagestyle{empty}%
+   \newpage
    \bibpdfbookmark{КОСМИЧЕСКОЕ ГРАЖДАНСТВО}{qz}%
    \vspace*{\stretch{0.2}}%
    \begin{center}\titlefont\fontsize{20}{20}\selectfont КОСМИЧЕСКОЕ ГРАЖДАНСТВО\\(\totalcurqs\ вопросов)\\\end{center}%
@@ -430,8 +430,8 @@
 \definecolor{ubdarkred}{rgb}{0.8, 0.0, 0.0}
 \protected\def\print@vssup#1{\makebox[0.4em][l]{\@textsuperscript{\fontsize{7}{7}\bfseries#1}}\kern0.3em\relax}
 \newcommand{\titlesepbig}{{\usefont{U}{webo}{xl}{n}\huge\textcolor{ubblue}{ahb}}}
-\newcommand{\bibpaperfont}{\headingfont\fontsize{12}{18}\selectfont}
-\newcommand{\bibpapertitlefont}{\headingfont\fontsize{14}{18}\selectfont}
+\newcommand{\bibpaperfont}{\titlefont\fontsize{14}{18}\selectfont}
+\newcommand{\bibpapertitlefont}{\titlefont\fontsize{16}{18}\selectfont}
 \newcommand{\bibtocsuperheadfont}{\fontsize{14}{20}\selectfont}
 \renewcommand{\bibtocheadfont}{\addfontfeature{LetterSpace=1.2}\fontsize{11}{12}\bfseries}
 \renewcommand{\bibtocfont}{\fontsize{8.8}{17}\selectfont}
@@ -460,8 +460,8 @@
 \protected\def\print@vssup#1{\makebox[0.2em][r]{\@textsuperscript{\headerfont\fontsize{10}{10}\selectfont#1}}\kern0.2em\relax}
 \def\pc{{\fontsize{12}{12}\selectfont\P}\kern2pt}
 \newcommand{\titlesepbig}{{\usefont{U}{webo}{xl}{n}\Large\textcolor{ubblue}{ahb}}}
-\newcommand{\bibpaperfont}{\headingfont\fontsize{13}{15}\selectfont}
-\newcommand{\bibpapertitlefont}{\headingfont\fontsize{15}{17}\selectfont}
+\newcommand{\bibpaperfont}{\titlefont\fontsize{13}{15}\selectfont}
+\newcommand{\bibpapertitlefont}{\titlefont\fontsize{15}{17}\selectfont}
 \newcommand{\bibtocsuperheadfont}{\fontsize{14}{20}\selectfont}
 \renewcommand{\bibheadfont}{\headingfont\fontsize{7.2}{7.2}\selectfont}
 \renewcommand{\bibtocheadfont}{\addfontfeature{LetterSpace=1.2}\fontsize{12}{16}\bfseries}
@@ -488,8 +488,8 @@
 \definecolor{ubdarkred}{rgb}{0.0, 0.0, 0.0}
 \protected\def\print@vssup#1{\makebox[0.4em][l]{\@textsuperscript{\fontsize{7}{7}\bfseries#1}}\kern0.3em\relax}
 \newcommand{\titlesepbig}{{\usefont{U}{webo}{xl}{n}\huge\textcolor{ubblue}{ahb}}}
-\newcommand{\bibpaperfont}{\headingfont\fontsize{12}{16}\selectfont}
-\newcommand{\bibpapertitlefont}{\headingfont\fontsize{14}{16}\selectfont}
+\newcommand{\bibpaperfont}{\titlefont\fontsize{12}{16}\selectfont}
+\newcommand{\bibpapertitlefont}{\titlefont\fontsize{14}{16}\selectfont}
 \newcommand{\bibtocsuperheadfont}{\fontsize{14}{20}\selectfont}
 \renewcommand{\bibtocheadfont}{\addfontfeature{LetterSpace=1.2}\fontsize{11}{12}\bfseries}
 \renewcommand{\bibtocfont}{\fontsize{8.8}{17}\selectfont}
@@ -554,7 +554,7 @@
 
 \newcommand{\bibpaperdisplay}[2]{%
    \begin{center}%
-   \ifnum #1>0\bibpaperfont\papertxt\nobreakspace\ №\,#1\\\fi
+   \ifnum #1>0\bibpaperfont\papertxt\nobreakspace\ №\,#1\\[1ex]\fi
    \bibpapertitlefont#2\\%
    \end{center}%
 }
