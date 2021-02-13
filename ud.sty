@@ -37,6 +37,7 @@
 \setdefaultlanguage{russian}
 
 \renewcommand{\r}{\kern2pt\raisebox{1.5ex}{\circle{2}}}
+\newcommand{\subtitlefont}{\Large}
 
 \tunemarkup{garamond}{%
 \def\urantiamainfont{Garamond Premier Pro}
@@ -106,8 +107,8 @@
 
 \newcommand{\upapertitleheader}[3]{%
    \mbox{%
-     \makebox[0.05\linewidth][l]{№}%
-     \makebox[0.57\linewidth][l]{\textsc{#1}}%
+     \makebox[0.05\linewidth][c]{№}%
+     \makebox[0.57\linewidth][c]{\textsc{#1}}%
      \makebox[0.29\linewidth][l]{\textsc{#2}}%
      \makebox[0.05\linewidth][l]{\textsc{#3}}%
   }%
@@ -436,7 +437,7 @@
 \newcommand{\bibpapertitlefont}{\titlefont\fontsize{16}{18}\selectfont}
 \newcommand{\bibtocsuperheadfont}{\fontsize{14}{20}\selectfont}
 \renewcommand{\bibtocheadfont}{\addfontfeature{LetterSpace=1.2}\fontsize{11}{12}\bfseries}
-\renewcommand{\bibtocfont}{\fontsize{8.8}{17}\selectfont}
+\renewcommand{\bibtocfont}{\fontsize{8.8}{18}\selectfont}
 \newcommand{\bibheadpapersize}{\fontsize{8.0}{8.0}\selectfont}
 \renewcommand{\bibheadchapsize}{\fontsize{7.5}{7.5}\selectfont}
 \renewcommand{\bibheadversesize}{\fontsize{7}{7}\selectfont}
@@ -490,15 +491,15 @@
 \newcommand{\titlesepbig}{{\usefont{U}{webo}{xl}{n}\huge\textcolor{ubblue}{ahb}}}
 \newcommand{\bibpaperfont}{\titlefont\fontsize{12}{16}\selectfont}
 \newcommand{\bibpapertitlefont}{\titlefont\fontsize{14}{16}\selectfont}
-\newcommand{\bibtocsuperheadfont}{\fontsize{14}{20}\selectfont}
-\renewcommand{\bibtocheadfont}{\addfontfeature{LetterSpace=1.2}\fontsize{11}{12}\bfseries}
-\renewcommand{\bibtocfont}{\fontsize{8.8}{17}\selectfont}
+\newcommand{\bibtocsuperheadfont}{\fontsize{12}{20}\selectfont}
+\renewcommand{\bibtocheadfont}{\addfontfeature{LetterSpace=1.2}\fontsize{10}{12}\bfseries}
+\renewcommand{\bibtocfont}{\fontsize{7}{14}\selectfont}
 \newcommand{\bibheadpapersize}{\fontsize{8.0}{8.0}\selectfont}
 \renewcommand{\bibheadchapsize}{\fontsize{7.5}{7.5}\selectfont}
 \renewcommand{\bibheadversesize}{\fontsize{7}{7}\selectfont}
 \renewcommand{\bibheadpagesize}{\fontsize{8}{8}\selectfont}
-\newcommand{\subfont}{\fontsize{12}{15}\itshape}
-\newcommand{\parttitlefontsize}{\large}
+\newcommand{\subfont}{\fontsize{11}{13}\itshape}
+\newcommand{\parttitlefontsize}{\normalsize}
 \newcommand{\bibsectitlefont}{\sectiontitlefont\fontsize{9}{10}\selectfont}
 \renewcommand{\bibheadfont}{\headingfont\fontsize{7.7}{7.7}\selectfont}
 \newcommand{\bibbookend}{\fontsize{16}{18}\selectfont}
