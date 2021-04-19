@@ -75,6 +75,12 @@
 \newfontfamily\libertinefont[Mapping=tex-text]{Linux Libertine O}
 \newcommand{\tux}{{\libertinefont ^^^^e000}}
 
+% for typesetting fractions: 1/2, 1/6, etc.
+\newcommand{\bibfrac}[2]{{\addfontfeature{Fractions=On}#1/#2}}
+% for fonts which have no support for fractions uncomment these two lines
+%\RequirePackage{nicefrac}
+%\renewcommand{\bibfrac}[2]{\nicefrac{#1}{#2}}
+
 \newcounter{paper}
 \newcounter{secnum}
 
