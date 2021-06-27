@@ -32,7 +32,7 @@
 \tunemarkuptag{pictures}
 
 % comment out to enable Cosmic Citizenship Quiz
-%\tunemarkuptag{noquiz}
+\tunemarkuptag{noquiz}
 
 \setdefaultlanguage{russian}
 
@@ -74,6 +74,7 @@
 
 \newfontfamily\libertinefont[Mapping=tex-text]{Linux Libertine O}
 \newcommand{\tux}{{\libertinefont ^^^^e000}}
+\newcommand{\dt}{\ensuremath{\cdot}}
 
 % for typesetting fractions: 1/2, 1/6, etc.
 \newcommand{\bibfrac}[2]{{\addfontfeature{Fractions=On}#1/#2}}
@@ -187,7 +188,7 @@
 
 \newcommand{\quizlink}{\par\vspace*{\stretch{0.1}}\begin{center}\hyperlink{qc\thepaper}{\Huge\quizsymbol}\end{center}\vspace*{\stretch{0.9}}}%
 
-\tunemarkup{noquiz}{\def\quizlink{}}
+%\tunemarkup{noquiz}{\def\quizlink{}}
 
 \newcommand{\titleframe}{%
 \begingroup
