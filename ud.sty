@@ -64,7 +64,7 @@
 \newfontfamily\titlefont[Letters=Uppercase,LetterSpace=1.0,WordSpace=2.0,Mapping=tex-text]{\urantiatitlefont}
 \newfontfamily\parttitlefont[Letters=Uppercase,LetterSpace=3.0,WordSpace=2.0,Mapping=tex-text]{\urantiaparttitlefont}
 \newfontfamily\headerfont[WordSpace=2.4,Letters=Uppercase,LetterSpace=2.0,Mapping=tex-text]{\urantiaheaderfont}
-\newfontfamily\sectiontitlefont[WordSpace=2.0,Letters=Uppercase,LetterSpace=1.2,Mapping=tex-text]{\urantiaheaderfont}
+\newfontfamily\sectiontitlefont[WordSpace=2.0,Letters=Uppercase,Mapping=tex-text]{\urantiaheaderfont}
 \newfontfamily\headingfont[LetterSpace=1.2,WordSpace=1.2,Mapping=tex-text]{\urantiaheadingfont}
 \newfontfamily\authorfontfamily[Mapping=tex-text]{\urantiaauthorfont}
 
@@ -91,7 +91,7 @@
 \fancyhead[L]{\bibheadfont\vs@range}
 \fancyhead[R]{\bibheadfont\bibheadpagesize\thepage}
 
-\renewcommand{\author}[1]{\thispagestyle{empty}\begin{center}\authorfontfamily\authorfontsize\textcolor{ubblue}{#1}\end{center}\fancyhead[CE]{\bibheadfont\MakeUppercase{#1}}}
+\renewcommand{\author}[1]{\begin{center}\authorfontfamily\authorfontsize\textcolor{ubblue}{#1}\end{center}\fancyhead[CE]{\bibheadfont\MakeUppercase{#1}}}
 
 \newcommand{\upartheader}[1]{%
    \par\vspace{3ex}\pagebreak[3]%
@@ -257,7 +257,6 @@
 }
 
 \tunemarkup{pgkoboaurahd}{\tolerance=2000}
-\tunemarkup{pgnexus10}{\tolerance=4000}
 \tunemarkup{pgthinmob}{\tolerance=9999}
 
 \DeclareTextAccent{\'}{\encodingdefault}{180}
@@ -423,7 +422,7 @@
     \bibsectitlefont
     \makebox[0.08\linewidth][r]{\theuminitocnum.\,}%
     \makebox[0.85\linewidth][l]{#1\bibdf}%
-    \makebox[0.06\linewidth][r]{\bibpr{p\thepaper_\theuminitocnum}}\\[-0.5ex]%
+    \makebox[0.06\linewidth][r]{\bibpr{p\thepaper_\theuminitocnum}}\\%
    }%
 }
 
@@ -434,6 +433,7 @@
 \def\pc{{\fontsize{13}{13}\selectfont§§}\kern3pt}
 
 \tunemarkup{pgnexus10}{%
+\tolerance=500
 \definecolor{ubblue}{rgb}{0.0, 0.3, 0.6}
 \definecolor{ubgreen}{rgb}{0.0, 0.4, 0.0}
 \definecolor{ubdarkred}{rgb}{0.8, 0.0, 0.0}
@@ -452,8 +452,8 @@
 \newcommand{\parttitlefontsize}{\LARGE}
 \newcommand{\bibsectitlefont}{\sectiontitlefont\fontsize{11}{13}\selectfont}
 \renewcommand{\bibheadfont}{\headingfont\fontsize{7.7}{7.7}\selectfont}
-\newcommand{\bibbookend}{\fontsize{17}{19}\selectfont}
-\newcommand{\urantiamainfontsize}{17/19}
+\newcommand{\bibbookend}{\fontsize{16.5}{19}\selectfont}
+\newcommand{\urantiamainfontsize}{16.5/19}
 \renewcommand{\footnotesize}{\fontsize{14}{16}\selectfont}
 \newcommand{\authorfontsize}{\fontsize{26}{8}\selectfont}%
 \newcommand{\introfontsize}{\fontsize{15.5}{17}\selectfont}
@@ -569,7 +569,7 @@
 \newcommand{\myurl}[1]{\href{#1}{#1}}
 
 \newcommand{\upaper}[2]{%
-\newpage%
+\newpage\thispagestyle{empty}%
 \setcounter{paper}{#1}%
 \setcounter{secnum}{0}%
 \setcounter{uminitocnum}{0}
@@ -655,6 +655,17 @@
 
 \begin{hyphenrules}{russian}
 \hyphenation{%
+уп-рав-ля-ю-щих
+Cont-ractu-ral
+не-да-ле-ко
+пре-до-став-ля-ет
+ок-ру-жа-ет
+по-том-ство
+соб-с-т-вен-ную
+Древ-ни-ми
+Древ-ний
+оз-на-ча-ет
+at-tain-ment
 dist-ri-bu-tive
 ex-pan-sive
 crea-tu-re
