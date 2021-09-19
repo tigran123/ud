@@ -58,10 +58,10 @@
 \setlength{\parskip}{2pt plus 5pt minus 2pt}
 
 \setmainfont[WordSpace={1.2,2.5,1.0},Mapping=tex-text]{\urantiamainfont}
-\newfontfamily\titlefont[Letters=Uppercase,LetterSpace=1.0,WordSpace=2.0,Mapping=tex-text]{\urantiatitlefont}
+\newfontfamily\titlefont[Letters=Uppercase,LetterSpace=3.0,WordSpace=2.0,Mapping=tex-text]{\urantiatitlefont}
 \newfontfamily\parttitlefont[Letters=Uppercase,LetterSpace=3.0,WordSpace=2.0,Mapping=tex-text]{\urantiaparttitlefont}
 \newfontfamily\headerfont[WordSpace=2.4,Letters=Uppercase,LetterSpace=2.0,Mapping=tex-text]{\urantiaheaderfont}
-\newfontfamily\sectiontitlefont[WordSpace=2.0,Letters=Uppercase,Mapping=tex-text]{\urantiaheaderfont}
+\newfontfamily\sectiontitlefont[WordSpace=2.0,Letters=Uppercase,LetterSpace=3.0,Mapping=tex-text]{\urantiaheaderfont}
 \newfontfamily\headingfont[LetterSpace=1.2,WordSpace=1.2,Mapping=tex-text]{\urantiaheadingfont}
 \newfontfamily\authorfontfamily[Mapping=tex-text]{\urantiaauthorfont}
 
@@ -411,11 +411,8 @@
 \newcounter{uminitocnum}
 
 \newcommand{\uminitoc}[1]{%
-   {%
     \stepcounter{uminitocnum}%
-    \bibsectitlefont
-    \makebox[0.08\linewidth][r]{\theuminitocnum.\,}\makebox[0.85\linewidth][l]{\uppercase{#1}\bibdf}\makebox[0.06\linewidth][r]{\bibpr{p\thepaper_\theuminitocnum}}\\[-1ex]%
-   }%
+    {\bibsectitlefont\makebox[0.08\linewidth][r]{\theuminitocnum.\,}\makebox[0.85\linewidth][l]{\uppercase{#1}\bibdf}\makebox[0.06\linewidth][r]{\bibpr{p\thepaper_\theuminitocnum}}\\}%
 }
 
 % for TOC entries horizontal spacing
@@ -483,7 +480,7 @@
 }
 
 \tunemarkup{pgkoboaurahd}{%
-\setcounter{DefaultLines}{2}
+\setcounter{DefaultLines}{3}
 \tolerance=2000
 \definecolor{ubblue}{rgb}{0.0, 0.0, 0.0}
 \definecolor{ubgreen}{rgb}{0.0, 0.0, 0.0}
@@ -510,6 +507,10 @@
 \newcommand{\introfontsize}{\fontsize{15.5}{17}\selectfont}
 \newcommand{\titlefontsize}{\fontsize{15}{22}\selectfont}
 \newcommand{\indexfontsize}{\fontsize{19}{28}\selectfont}
+\renewcommand{\uminitoc}[1]{%
+    \stepcounter{uminitocnum}%
+    {\bibsectitlefont\makebox[0.08\linewidth][r]{\theuminitocnum.\,}\makebox[0.85\linewidth][l]{\uppercase{#1}\bibdf}\makebox[0.06\linewidth][r]{\bibpr{p\thepaper_\theuminitocnum}}\\[-1.6ex]}%
+}
 }
 
 \newcommand{\vsetoff}{\vspace*{1ex}}%
