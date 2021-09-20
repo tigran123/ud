@@ -41,7 +41,6 @@
 \def\urantiaparttitlefont{Garamond Premier Pro Semibold Display}
 \def\urantiaauthorfont{PF DaVinci Script Pro}
 \def\urantiatitlefont{Garamond Premier Pro Semibold Display}
-\def\urantiaheaderfont{Garamond Premier Pro Semibold Caption}
 \def\urantiaheadingfont{Arial Narrow Bold}
 }
 
@@ -60,8 +59,6 @@
 \setmainfont[WordSpace={1.2,2.5,1.0},Mapping=tex-text]{\urantiamainfont}
 \newfontfamily\titlefont[Letters=Uppercase,LetterSpace=3.0,WordSpace=2.0,Mapping=tex-text]{\urantiatitlefont}
 \newfontfamily\parttitlefont[Letters=Uppercase,LetterSpace=3.0,WordSpace=2.0,Mapping=tex-text]{\urantiaparttitlefont}
-\newfontfamily\headerfont[WordSpace=2.4,Letters=Uppercase,LetterSpace=2.0,Mapping=tex-text]{\urantiaheaderfont}
-\newfontfamily\sectiontitlefont[WordSpace=2.0,Letters=Uppercase,LetterSpace=3.0,Mapping=tex-text]{\urantiaheaderfont}
 \newfontfamily\headingfont[LetterSpace=1.2,WordSpace=1.2,Mapping=tex-text]{\urantiaheadingfont}
 \newfontfamily\authorfontfamily[Mapping=tex-text]{\urantiaauthorfont}
 
@@ -124,7 +121,7 @@
      \makebox[0.05\linewidth][r]{#1. }%
      \makebox[0.57\linewidth][l]{#2\bibdf}%
      \makebox[0.29\linewidth][l]{#3\bibdf}%
-     \makebox[0.07\linewidth][r]{\headerfont\bibpr{#4}}%
+     \makebox[0.07\linewidth][r]{\bibpr{#4}}%
    }\vspace{0.6ex}\linebreak
 }
 
@@ -134,7 +131,7 @@
 \def\secname{#1}
     \stepcounter{secnum}%
     \par\raggedbottom\addtolength{\topskip}{0pt plus 20pt}\vspace*{1ex}%
-    {\centering\sectiontitlefont\parbox{\columnwidth}{\mdseries\centering\ifx\secname\ackn\itshape\uppercase{#1}\else\uppercase{\thesecnum.\bibnobreakspace #1}\fi}\\*[3pt]}%
+    {\centering\titlefont\parbox{\columnwidth}{\mdseries\centering\ifx\secname\ackn\itshape\uppercase{#1}\else\uppercase{\thesecnum.\bibnobreakspace #1}\fi}\\*[3pt]}%
 \def\bibnobreakspace{ }
     % XXX for section-level bookmarks uncomment the following line and comment the one after
     \ifx\secname\ackn\else\bib@raise@anchor{\bibpdfbookmark[2]{\thesecnum. #1}{\bkname_\thechnum_\curr@vs}\label{p\thepaper_\thesecnum}\hypertarget{p\thepaper_\thesecnum}{}}\fi%
@@ -439,7 +436,7 @@
 \renewcommand{\bibheadpagesize}{\fontsize{8}{8}\selectfont}
 \newcommand{\subfont}{\fontsize{14}{17}\itshape}
 \newcommand{\parttitlefontsize}{\LARGE}
-\newcommand{\bibsectitlefont}{\sectiontitlefont\fontsize{10}{13}\selectfont}
+\newcommand{\bibsectitlefont}{\titlefont\fontsize{10}{13}\selectfont}
 \renewcommand{\bibheadfont}{\headingfont\fontsize{7.7}{7.7}\selectfont}
 \newcommand{\bibbookend}{\fontsize{16.5}{19}\selectfont}
 \newcommand{\urantiamainfontsize}{16.5/19}
@@ -455,7 +452,7 @@
 \definecolor{ubblue}{rgb}{0.0, 0.3, 0.6}
 \definecolor{ubgreen}{rgb}{0.0, 0.4, 0.0}
 \definecolor{ubdarkred}{rgb}{0.8, 0.0, 0.0}
-\protected\def\print@vssup#1{\makebox[0.2em][r]{\@textsuperscript{\headerfont\fontsize{10}{10}\selectfont#1}}\kern0.2em\relax}
+\protected\def\print@vssup#1{\makebox[0.2em][r]{\@textsuperscript{\fontsize{10}{10}\selectfont#1}}\kern0.2em\relax}
 \newcommand{\titlesepbig}{{\usefont{U}{webo}{xl}{n}\Large\textcolor{ubblue}{ahb}}}
 \newcommand{\bibpaperfont}{\titlefont\fontsize{13}{15}\selectfont}
 \newcommand{\bibpapertitlefont}{\titlefont\fontsize{15}{17}\selectfont}
@@ -469,7 +466,7 @@
 \renewcommand{\bibheadpagesize}{\fontsize{8}{8}\selectfont}
 \newcommand{\subfont}{\fontsize{14}{17}\itshape}
 \newcommand{\parttitlefontsize}{\Large}
-\newcommand{\bibsectitlefont}{\sectiontitlefont\fontsize{7}{7}\selectfont}
+\newcommand{\bibsectitlefont}{\titlefont\fontsize{7}{7}\selectfont}
 \newcommand{\bibbookend}{\fontsize{19}{21}\selectfont}
 \newcommand{\urantiamainfontsize}{19/21}
 \renewcommand{\footnotesize}{\fontsize{16}{18}\selectfont}
@@ -498,7 +495,7 @@
 \renewcommand{\bibheadpagesize}{\fontsize{8}{8}\selectfont}
 \newcommand{\subfont}{\fontsize{11}{13}\itshape}
 \newcommand{\parttitlefontsize}{\normalsize}
-\newcommand{\bibsectitlefont}{\sectiontitlefont\fontsize{8}{8}\selectfont}
+\newcommand{\bibsectitlefont}{\titlefont\fontsize{7.5}{7.5}\selectfont}
 \renewcommand{\bibheadfont}{\headingfont\fontsize{7.7}{7.7}\selectfont}
 \newcommand{\bibbookend}{\fontsize{16}{18}\selectfont}
 \newcommand{\urantiamainfontsize}{16/18}
