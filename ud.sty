@@ -38,7 +38,8 @@
 
 \tunemarkup{garamond}{%
 \def\urantiamainfont{Garamond Premier Pro}
-\def\urantiaparttitlefont{Garamond Premier Pro Semibold Display}
+%\def\urantiaparttitlefont{Garamond Premier Pro Semibold Display}
+\def\urantiaparttitlefont{a_AntiqueGr}
 \def\urantiaauthorfont{PF DaVinci Script Pro}
 \def\urantiatitlefont{Garamond Premier Pro Semibold Display}
 \def\urantiaheadingfont{Garamond Premier Pro Semibold Caption}
@@ -419,12 +420,13 @@
 \def\pc{{\fontsize{13}{13}\selectfont§§}\kern3pt}
 
 \tunemarkup{pgnexus10}{%
+\def\phoenixscale{0.17}
 \tolerance=500
 \definecolor{ubblue}{rgb}{0.0, 0.3, 0.6}
 \definecolor{ubgreen}{rgb}{0.0, 0.4, 0.0}
 \definecolor{ubdarkred}{rgb}{0.8, 0.0, 0.0}
 \protected\def\print@vssup#1{\makebox[0.4em][l]{\@textsuperscript{\fontsize{7}{7}\bfseries#1}}\kern0.3em\relax}
-\newcommand{\titlesepbig}{{\usefont{U}{webo}{xl}{n}\huge\textcolor{ubblue}{ahb}}}
+\newcommand{\titlesepbig}{{\usefont{U}{webo}{xl}{n}\LARGE\textcolor{ubblue}{ahb}}}
 \newcommand{\bibpaperfont}{\titlefont\fontsize{14}{18}\selectfont}
 \newcommand{\bibpapertitlefont}{\titlefont\fontsize{16}{18}\selectfont}
 \newcommand{\bibtocsuperheadfont}{\fontsize{14}{20}\selectfont}
@@ -443,11 +445,12 @@
 \renewcommand{\footnotesize}{\fontsize{14}{16}\selectfont}
 \newcommand{\authorfontsize}{\fontsize{26}{8}\selectfont}%
 \newcommand{\introfontsize}{\fontsize{15.5}{17}\selectfont}
-\newcommand{\titlefontsize}{\fontsize{19}{28}\selectfont}
+\newcommand{\titlefontsize}{\fontsize{20}{30}\selectfont}
 \newcommand{\indexfontsize}{\fontsize{19}{28}\selectfont}
 }
 
 \tunemarkup{pgthinmob}{%
+\def\phoenixscale{0.17}
 \tolerance=9999
 \definecolor{ubblue}{rgb}{0.0, 0.3, 0.6}
 \definecolor{ubgreen}{rgb}{0.0, 0.4, 0.0}
@@ -477,13 +480,14 @@
 }
 
 \tunemarkup{pgkoboaurahd}{%
+\def\phoenixscale{0.15}
 \setcounter{DefaultLines}{3}
 \tolerance=2000
 \definecolor{ubblue}{rgb}{0.0, 0.0, 0.0}
 \definecolor{ubgreen}{rgb}{0.0, 0.0, 0.0}
 \definecolor{ubdarkred}{rgb}{0.0, 0.0, 0.0}
 \protected\def\print@vssup#1{\makebox[0.4em][l]{\@textsuperscript{\fontsize{7}{7}\bfseries#1}}\kern0.3em\relax}
-\newcommand{\titlesepbig}{{\usefont{U}{webo}{xl}{n}\huge\textcolor{ubblue}{ahb}}}
+\newcommand{\titlesepbig}{{\usefont{U}{webo}{xl}{n}\large\textcolor{ubblue}{ahb}}}
 \newcommand{\bibpaperfont}{\titlefont\fontsize{12}{16}\selectfont}
 \newcommand{\bibpapertitlefont}{\titlefont\fontsize{14}{16}\selectfont}
 \newcommand{\bibtocsuperheadfont}{\fontsize{12}{20}\selectfont}
@@ -493,8 +497,8 @@
 \renewcommand{\bibheadchapsize}{\fontsize{7.5}{7.5}\selectfont}
 \renewcommand{\bibheadversesize}{\fontsize{7}{7}\selectfont}
 \renewcommand{\bibheadpagesize}{\fontsize{8}{8}\selectfont}
-\newcommand{\subfont}{\fontsize{11}{13}\itshape}
-\newcommand{\parttitlefontsize}{\normalsize}
+\newcommand{\subfont}{\fontsize{10.5}{12}\itshape}
+\newcommand{\parttitlefontsize}{\large}
 \newcommand{\bibsectitlefont}{\titlefont\fontsize{7.5}{7.5}\selectfont}
 \renewcommand{\bibheadfont}{\headingfont\fontsize{7.7}{7.7}\selectfont}
 \newcommand{\bibbookend}{\fontsize{16}{18}\selectfont}
@@ -502,7 +506,7 @@
 \renewcommand{\footnotesize}{\fontsize{14}{16}\selectfont}
 \newcommand{\authorfontsize}{\fontsize{21}{8}\selectfont}%
 \newcommand{\introfontsize}{\fontsize{15.5}{17}\selectfont}
-\newcommand{\titlefontsize}{\fontsize{15}{22}\selectfont}
+\newcommand{\titlefontsize}{\fontsize{18}{28}\selectfont}
 \newcommand{\indexfontsize}{\fontsize{19}{28}\selectfont}
 \renewcommand{\uminitoc}[1]{%
     \stepcounter{uminitocnum}%
