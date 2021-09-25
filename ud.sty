@@ -42,6 +42,7 @@
 \def\urantiaparttitlefont{a_AntiqueGr}
 \def\urantiaauthorfont{PF DaVinci Script Pro}
 \def\urantiatitlefont{Garamond Premier Pro Semibold Display}
+\def\urantiamdheadingfont{Garamond Premier Pro Medium Caption}
 \def\urantiaheadingfont{Garamond Premier Pro Semibold Caption}
 }
 
@@ -60,6 +61,8 @@
 \setmainfont[WordSpace={1.2,2.5,1.0},Mapping=tex-text]{\urantiamainfont}
 \newfontfamily\titlefont[Letters=Uppercase,LetterSpace=3.0,WordSpace=2.0,Mapping=tex-text]{\urantiatitlefont}
 \newfontfamily\parttitlefont[Letters=Uppercase,LetterSpace=3.0,WordSpace=2.0,Mapping=tex-text]{\urantiaparttitlefont}
+\newfontfamily\tocparttitlefont[Letters=Uppercase,LetterSpace=2.0,WordSpace=1.0,Mapping=tex-text]{\urantiaparttitlefont}
+\newfontfamily\mdheadingfont[Numbers=Lining,LetterSpace=1.2,WordSpace=1.2,Mapping=tex-text]{\urantiamdheadingfont}
 \newfontfamily\headingfont[Numbers=Lining,LetterSpace=1.2,WordSpace=1.2,Mapping=tex-text]{\urantiaheadingfont}
 \newfontfamily\authorfontfamily[Mapping=tex-text]{\urantiaauthorfont}
 
@@ -91,7 +94,7 @@
 \newcommand{\upartheader}[1]{%
    \par\vspace{3ex}\pagebreak[3]%
    {
-   \titlefont\bibtocheadfont
+   \tocparttitlefont\bibtocheadfont
     \ifnum #1=1
        \partitxt.~\partiup
     \fi
@@ -109,6 +112,7 @@
 
 \newcommand{\upapertitleheader}[3]{%
    \mbox{%
+     \headingfont
      \makebox[0.05\linewidth][c]{№}%
      \makebox[0.57\linewidth][c]{\textsc{#1}}%
      \makebox[0.29\linewidth][l]{\textsc{#2}}%
@@ -119,6 +123,7 @@
 \newcommand{\upapertitle}[4]{%
    {
      \pagebreak[3]%
+     \mdheadingfont
      \makebox[0.05\linewidth][r]{#1. }%
      \makebox[0.57\linewidth][l]{#2\bibdf}%
      \makebox[0.29\linewidth][l]{#3\bibdf}%
@@ -431,7 +436,7 @@
 \newcommand{\bibpapertitlefont}{\titlefont\fontsize{16}{18}\selectfont}
 \newcommand{\bibtocsuperheadfont}{\fontsize{14}{20}\selectfont}
 \renewcommand{\bibtocheadfont}{\addfontfeature{LetterSpace=1.2}\fontsize{11}{12}\bfseries}
-\renewcommand{\bibtocfont}{\fontsize{8.8}{18}\selectfont}
+\renewcommand{\bibtocfont}{\fontsize{8.5}{18}\selectfont}
 \newcommand{\bibheadpapersize}{\fontsize{8.0}{8.0}\selectfont}
 \renewcommand{\bibheadchapsize}{\fontsize{7.5}{7.5}\selectfont}
 \renewcommand{\bibheadversesize}{\fontsize{7}{7}\selectfont}
@@ -492,7 +497,7 @@
 \newcommand{\bibpapertitlefont}{\titlefont\fontsize{14}{16}\selectfont}
 \newcommand{\bibtocsuperheadfont}{\fontsize{12}{20}\selectfont}
 \renewcommand{\bibtocheadfont}{\addfontfeature{LetterSpace=1.2}\fontsize{10}{12}\bfseries}
-\renewcommand{\bibtocfont}{\fontsize{7}{14}\selectfont}
+\renewcommand{\bibtocfont}{\fontsize{6}{14}\selectfont}
 \newcommand{\bibheadpapersize}{\fontsize{8.0}{8.0}\selectfont}
 \renewcommand{\bibheadchapsize}{\fontsize{7.5}{7.5}\selectfont}
 \renewcommand{\bibheadversesize}{\fontsize{7}{7}\selectfont}
