@@ -103,6 +103,8 @@
   \catcode58=12
 }
 
+\gdef\secname{}%
+
 \newif\if@vs@dc@do
 % XXX
 \def\vs{\ifparvs\par\fi\treat@colon\@ifnextchar\bgroup\@vs\@@vs}
@@ -117,13 +119,14 @@
   \if@firstvs@bk
       \@vs@dc@dotrue
   \fi
-  \if@firstvs@ch
-      \par\if@vs@dc@do\else\leavevmode\fi
-  \else\hspace{0.2ex}\fi
   \gdef\bkname{#1}%
   \gdef\curr@ch{#2}%
   \gdef\curr@vs{#3}%
   \setcounter{chnum}{#2}%
+  \if@firstvs@ch
+      \par\if@vs@dc@do\else\leavevmode\fi
+      \ifx\curr@ch\vs@zero\else\bib@raise@anchor{\pdfbookmark[2]{\thesecnum. \secname}{\bkname_\thechnum_\curr@vs}\label{p\thepaper_\thesecnum}\hypertarget{p\thepaper_\thesecnum}{}}\fi%
+  \else\hspace{0.2ex}\fi
   \if@vs@dc@do
     \expandafter\vs@test@emph
   \else

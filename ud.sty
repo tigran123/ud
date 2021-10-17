@@ -134,14 +134,10 @@
 \newcommand{\li}[1]{\kern1.0em\relax\makebox[0.2em][r]{#1}\kern0.3em\relax}
 
 \newcommand*{\usection}[1]{%
-\def\secname{#1}
+\gdef\secname{#1}%
     \stepcounter{secnum}%
     \par\raggedbottom\addtolength{\topskip}{0pt plus 20pt}\vspace*{1ex}%
     {\centering\titlefont\parbox{\columnwidth}{\mdseries\centering\ifx\secname\ackn\itshape\uppercase{#1}\else\uppercase{\thesecnum.\bibnobreakspace #1}\fi}\\*[3pt]}%
-\def\bibnobreakspace{ }
-    % XXX for section-level bookmarks uncomment the following line and comment the one after
-    \ifx\secname\ackn\else\bib@raise@anchor{\bibpdfbookmark[2]{\thesecnum. #1}{\bkname_\thechnum_\curr@vs}\label{p\thepaper_\thesecnum}\hypertarget{p\thepaper_\thesecnum}{}}\fi%
-\def\bibnobreakspace{\kern5pt\relax}
     \flushbottom\addtolength{\topskip}{0pt plus -20pt}
 }
 
@@ -525,7 +521,7 @@
 \hypersetup{%
   pdftitle={Пятое Эпохальное Откровение (Урантийские документы)},%
   pdfauthor={Tigran Aivazian <aivazian.tigran@gmail.com>},%
-  pdfcreator={Bibles.org.uk типографская среда на базе TeX Live 2020},%
+  pdfcreator={Bibles.org.uk типографская среда на базе TeX Live 2021},%
   pdfsubject={Урантийские документы на русском языке},%
   pdfkeywords={Урантия,Земля,Истина,Религия,Иисус,Откровение,Бог,Христианство,Библия,Писания,История},%
   pdflang={Russian},%
