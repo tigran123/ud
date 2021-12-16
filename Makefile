@@ -1,7 +1,12 @@
 # Makefile for ud (Урантийские Документы)
 
 MOD = ud
-WORKDIR = $(TMPDIR)/$(MOD)
+
+ifndef TMPDIR
+	WORKDIR = /tmp/$(MOD)
+else
+	WORKDIR = $(TMPDIR)/$(MOD)
+endif
 
 # otherwise makeindex won't work with our choice of WORKDIR
 export openout_any = a
