@@ -63,6 +63,7 @@ function convert_section($text) {
 
 function convert_text($text) {
    $search = ['/\\\\pc /u',
+              '/\\\\sum\\\\limits\_{k=1}\^7/u',
               '/\\\\mathbb{N}/u',
               '/\\\\dt/u',
               '/\\\\int /u',
@@ -120,6 +121,7 @@ function convert_text($text) {
               '/\\\\Delta */u',
               '/\\\\geqslant */u',
               '/\\\\hbar */u',
+              '/N\_k/u',
               '/x\^n/u',
               '/x\^{\\\\mu}/u',
               '/p_{\\\\mu}/u',
@@ -139,6 +141,7 @@ function convert_text($text) {
               '/\\\\(?:texttt|textgreek|textchinese|textarm|textcolour{ubdarkred}){([^}]*)}/u',
               '/\\\\tunemarkup{(pictures|private)}{.*images\/([^}]*)}.*\\\\caption{([^}]*)}\\\end{figure}}$/u'];
    $replace = ['§§ ',
+               '∑<sub>k=1</sub><sup>7</sup>',
                'ℕ',
                '&centerdot;',
                '∫',
@@ -196,6 +199,7 @@ function convert_text($text) {
                'Δ',
                '⩾',
                'ℏ',
+               'N<sub>k</sub>',
                'x<sup>n</sup>',
                'x<sup>μ</sup>',
                'p<sub>μ</sub>',
