@@ -5,7 +5,7 @@ system("rm -rf 25 tex ; mkdir 25 tex ; cp ../tex/p???.tex tex");
 
 $nfilename = "25/notes.html";
 
-for ($i = 0; $i <= 30; $i++) {
+for ($i = 0; $i <= 31; $i++) {
    $ifilename = sprintf("tex/p%03d.tex", $i);
    $ofilename = sprintf("25/p%03d.html", $i);
    $ilines = file($ifilename);
