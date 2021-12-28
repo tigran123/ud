@@ -46,7 +46,7 @@ for ($i = 0; $i <= 31; $i++) {
          } else {
             $chap++;
             $verse = 0;
-            $section = $chap.' '.$section;
+            $section = $chap.'. '.$section;
          }
          $olines[] = '<h4><a class="U'.$i.'_'.$chap.'_'.$verse.'" href=".U'.$i.'_'.$chap.'_'.$verse.'">'.$section.'</a></h4>'.PHP_EOL;
       }
