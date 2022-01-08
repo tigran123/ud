@@ -1,12 +1,12 @@
 <?php
 ini_set('memory_limit','300M');
 
-system("rm -rf 25 tex ; mkdir 25 tex ; cp ../tex/p???.tex tex");
+system("rm -rf 25 ; mkdir 25");
 
 $nfilename = "25/notes.html";
 
 for ($i = 0; $i <= 31; $i++) {
-   $ifilename = sprintf("tex/p%03d.tex", $i);
+   $ifilename = sprintf("../tex/p%03d.tex", $i);
    $ofilename = sprintf("25/p%03d.html", $i);
    $ilines = file($ifilename);
    $olines = [];
@@ -64,6 +64,8 @@ function convert_section($text) {
 function convert_text($text) {
    $search = ['/\\\\pc /u',
               '/\\\\sum\\\\limits\_{k=1}\^7/u',
+              '/\\\\bibnobreakspace/u',
+              '/\\\\kern0.3em /u',
               '/\\\\mathbb{N}/u',
               '/\\\\dt/u',
               '/\\\\int /u',
@@ -142,6 +144,8 @@ function convert_text($text) {
               '/\\\\tunemarkup{(pictures|private)}{.*images\/([^}]*)}.*\\\\caption{([^}]*)}\\\end{figure}}$/u'];
    $replace = ['§§ ',
                '∑<sub>k=1</sub><sup>7</sup>',
+               '',
+               '',
                'ℕ',
                '&centerdot;',
                '∫',
