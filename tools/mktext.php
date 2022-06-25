@@ -140,7 +140,7 @@ function convert_text($text) {
               '/\\\\ts{([^}]*)}/u',
               '/\\\\(?:bibemph|textit|bibexpl){([^}]*)}/u',
               '/\\\\(?:mathbf|textbf|bibtextul){([^}]*)}/u',
-              '/\\\\(?:texttt|textgreek|textchinese|textarm|textcolour{ubdarkred}){([^}]*)}/u',
+              '/\\\\(?:texttt|myurl|textgreek|textchinese|textarm|textcolour{ubdarkred}){([^}]*)}/u',
               '/\\\\tunemarkup{(pictures|private)}{.*images\/([^}]*)}.*\\\\caption{([^}]*)}\\\end{figure}}$/u'];
    $replace = ['§§ ',
                '∑<sub>k=1</sub><sup>7</sup>',
