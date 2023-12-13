@@ -226,7 +226,7 @@ function convert_text($text) {
    $stage1 =  preg_replace($search, $replace, $text);
 
    return preg_replace_callback('/\\\\textheb{([^}]*)}/u', // reverse Hebrew for RTL
-             function($match) {return implode(array_reverse(explode(" ",$match[1]))," ");},
+             function($match) {return implode(" ", array_reverse(explode(" ",$match[1])));},
              $stage1);
 }
 ?>
