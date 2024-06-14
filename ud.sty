@@ -12,7 +12,7 @@
 %\tunemarkuptag{pgkoboaurahd}
 
 \RequirePackage[figure,curq,nfnst]{totalcount}
-\RequirePackage{caption,makeidx}
+\RequirePackage{caption}
 \RequirePackage[columns=1,font=current]{idxlayout}
 \RequirePackage[parvs]{ubook}
 
@@ -446,7 +446,6 @@
 \newcommand{\authorfontsize}{\fontsize{26}{8}\selectfont}%
 \newcommand{\introfontsize}{\fontsize{15.5}{17}\selectfont}
 \newcommand{\titlefontsize}{\fontsize{20}{30}\selectfont}
-\newcommand{\indexfontsize}{\fontsize{16}{20}\selectfont}
 }
 
 \tunemarkup{pgthinmob}{%
@@ -476,7 +475,6 @@
 \newcommand{\authorfontsize}{\fontsize{22}{9}\bfseries\itshape}%
 \newcommand{\introfontsize}{\fontsize{17}{19}\selectfont}
 \newcommand{\titlefontsize}{\fontsize{20}{22}\selectfont}
-\newcommand{\indexfontsize}{\fontsize{19}{28}\selectfont}
 }
 
 \tunemarkup{pgkoboaurahd}{%
@@ -507,7 +505,6 @@
 \newcommand{\authorfontsize}{\fontsize{21}{8}\selectfont}%
 \newcommand{\introfontsize}{\fontsize{15.5}{17}\selectfont}
 \newcommand{\titlefontsize}{\fontsize{18}{28}\selectfont}
-\newcommand{\indexfontsize}{\fontsize{19}{28}\selectfont}
 \renewcommand{\uminitoc}[1]{%
     \stepcounter{uminitocnum}%
     {\bibsectitlefont\makebox[0.08\linewidth][r]{\theuminitocnum.\,}\makebox[0.85\linewidth][l]{\uppercase{#1}\bibdf}\makebox[0.06\linewidth][r]{\bibpr{p\thepaper_\theuminitocnum}}\\[-1.6ex]}%
@@ -696,5 +693,3 @@ chan-nel
 chan-neliz-ing
 }
 \end{hyphenrules}
-
-\makeindex
