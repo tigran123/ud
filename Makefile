@@ -7,7 +7,7 @@ all::		$(MOD).pdf
 .PHONY:		clean
 
 clean::		
-		@rm -f $(MOD)*.{aux,bibtoc,fnchk,idx,ilg,ind,lof,log,out,pdf} select-book.tex missfont.log
+		@rm -f $(MOD)*.{aux,bibtoc,fnchk,idx,ilg,ind,lof,log,out,pdf} select-book.tex missfont.log tex/*.aux
 
 $(MOD).pdf:	select-book.tex
 		$(LATEX)
