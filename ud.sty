@@ -40,7 +40,8 @@
 \def\urantiamainfont{Garamond Premier Pro}
 %\def\urantiaparttitlefont{Garamond Premier Pro Semibold Display}
 \def\urantiaparttitlefont{a_AntiqueGr}
-\def\urantiaauthorfont{PF DaVinci Script Pro}
+%\def\urantiaauthorfont{PF DaVinci Script Pro}
+\def\urantiaauthorfont{Garamond Premier Pro Semibold Display}
 \def\urantiatitlefont{Garamond Premier Pro Semibold Display}
 \def\urantiamdheadingfont{Garamond Premier Pro Medium Caption}
 \def\urantiaheadingfont{Garamond Premier Pro Semibold Caption}
@@ -59,9 +60,9 @@
 \setlength{\parskip}{2pt plus 5pt minus 2pt}
 
 \setmainfont[WordSpace={1.2,2.5,1.0},Mapping=tex-text]{\urantiamainfont}
-\newfontfamily\titlefont[Letters=Uppercase,LetterSpace=3.0,WordSpace=2.0,Mapping=tex-text]{\urantiatitlefont}
-\newfontfamily\parttitlefont[Letters=Uppercase,LetterSpace=3.0,WordSpace=2.0,Mapping=tex-text]{\urantiaparttitlefont}
-\newfontfamily\tocparttitlefont[Letters=Uppercase,LetterSpace=2.0,WordSpace=1.0,Mapping=tex-text]{\urantiaparttitlefont}
+\newfontfamily\titlefont[RawFeature=+case,LetterSpace=3.0,WordSpace=2.0,Mapping=tex-text]{\urantiatitlefont}
+\newfontfamily\parttitlefont[RawFeature=+case,LetterSpace=3.0,WordSpace=2.0,Mapping=tex-text]{\urantiaparttitlefont}
+\newfontfamily\tocparttitlefont[RawFeature=+case,LetterSpace=2.0,WordSpace=1.0,Mapping=tex-text]{\urantiaparttitlefont}
 \newfontfamily\mdheadingfont[Numbers=Lining,LetterSpace=1.2,WordSpace=1.2,Mapping=tex-text]{\urantiamdheadingfont}
 \newfontfamily\headingfont[Numbers=Lining,LetterSpace=1.2,WordSpace=1.2,Mapping=tex-text]{\urantiaheadingfont}
 \newfontfamily\authorfontfamily[Mapping=tex-text]{\urantiaauthorfont}
@@ -443,7 +444,7 @@
 \newcommand{\bibbookend}{\fontsize{16.5}{18.5}\selectfont}
 \newcommand{\urantiamainfontsize}{16.5/18.5}
 \renewcommand{\footnotesize}{\fontsize{14}{16}\selectfont}
-\newcommand{\authorfontsize}{\fontsize{26}{8}\selectfont}%
+\newcommand{\authorfontsize}{\fontsize{18}{8}\itshape}%
 \newcommand{\introfontsize}{\fontsize{15.5}{17}\selectfont}
 \newcommand{\titlefontsize}{\fontsize{20}{30}\selectfont}
 }
